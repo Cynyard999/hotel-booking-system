@@ -1,0 +1,1 @@
+create database keshe DEFAULT CHARSET utf8;
