@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AdminController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.controller.admin</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AdminController (com.example.hotel.controller.admin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdminController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.controller.admin;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.bl.admin.AdminService;
+<i>4</i>&nbsp;import com.example.hotel.vo.HotelVO;
+<i>5</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>6</i>&nbsp;import com.example.hotel.vo.UserForm;
+<i>7</i>&nbsp;import com.example.hotel.vo.UserVO;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i>10</i>&nbsp;import org.springframework.web.multipart.MultipartFile;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.io.File;
+<i>13</i>&nbsp;import java.util.Date;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * @Author: chenyizong
+<i>17</i>&nbsp; * @Date: 2020-03-04
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;@RestController()
+<i>20</i>&nbsp;@RequestMapping(&quot;/api/admin&quot;)
+<b class="fc"><i>21</i>&nbsp;public class AdminController {</b>
+<i>22</i>&nbsp;    @Autowired
+<i>23</i>&nbsp;    AdminService adminService;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    @PostMapping(&quot;/addUser&quot;)
+<i>26</i>&nbsp;    public ResponseVO addUser(@RequestBody UserVO userVO){
+<b class="nc"><i>27</i>&nbsp;        return adminService.addUser(userVO);</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;    @GetMapping(&quot;/{type}/getUserList&quot;)
+<b class="nc"><i>30</i>&nbsp;    public ResponseVO getUserList(@PathVariable String type){ return ResponseVO.buildSuccess(adminService.getUserList(type)); }</b>
+<i>31</i>&nbsp;    @PostMapping(&quot;/updateUserInfo&quot;)
+<i>32</i>&nbsp;    public ResponseVO updateUserInfo(@RequestBody UserVO userVO){
+<b class="nc"><i>33</i>&nbsp;        return adminService.updateUserInfo(userVO);</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;    @PostMapping(&quot;/addHotel&quot;)
+<b class="nc"><i>36</i>&nbsp;    public ResponseVO addHotel(@RequestBody HotelVO hotelVO){ return adminService.addHotel(hotelVO); }</b>
+<i>37</i>&nbsp;    @PostMapping(&quot;/updateHotel&quot;)
+<i>38</i>&nbsp;    public ResponseVO updateHotel(@RequestBody HotelVO hotelVO){
+<b class="nc"><i>39</i>&nbsp;        return adminService.updateHotel(hotelVO);</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;    @GetMapping(&quot;/deleteHotel/{hotelId}&quot;)
+<b class="nc"><i>42</i>&nbsp;    public ResponseVO deleteHotel(@PathVariable int hotelId){return adminService.deleteHotel(hotelId);}</b>
+<i>43</i>&nbsp;    @GetMapping(&quot;/deleteUser/{userId}&quot;)
+<b class="nc"><i>44</i>&nbsp;    public ResponseVO deleteUser(@PathVariable int userId){return adminService.deleteUser(userId);}</b>
+<i>45</i>&nbsp;    @GetMapping(&quot;/{id}/getUserInfo&quot;)
+<b class="nc"><i>46</i>&nbsp;    public ResponseVO getUserInfo(@PathVariable int id){ return adminService.getUserInfo(id); }</b>
+<i>47</i>&nbsp;    @PostMapping(&quot;/saveFile&quot;)
+<i>48</i>&nbsp;    public ResponseVO uploadFile(@RequestParam(&quot;hotelId&quot;) String hotelId,@RequestParam(&quot;file&quot;) MultipartFile file) {
+<b class="nc"><i>49</i>&nbsp;        return adminService.uploadFile(hotelId,file);</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

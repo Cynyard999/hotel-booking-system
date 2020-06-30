@@ -1,0 +1,78 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.data.hotel</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomMapper (com.example.hotel.data.hotel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RoomMapper$MockitoMock$181464101</td>
+  </tr>
+  <tr>
+    <td class="name">RoomMapper$MockitoMock$181464101$auxiliary$DSeHRLLd</td>
+  </tr>
+  <tr>
+    <td class="name">RoomMapper$MockitoMock$181464101$auxiliary$XpdRw3CE</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.data.hotel;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Hotel;
+<i>4</i>&nbsp;import com.example.hotel.po.HotelRoom;
+<i>5</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>6</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;@Mapper
+<i>12</i>&nbsp;@Repository
+<i>13</i>&nbsp;public interface RoomMapper {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    int updateRoomInfo(@Param(&quot;hotelId&quot;) Integer hotelId,@Param(&quot;roomType&quot;) String roomType,@Param(&quot;curNum&quot;) Integer curNum);
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    int insertRoom(HotelRoom hotelRoom);
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    List&lt;HotelRoom&gt; selectRoomsByHotelId(@Param(&quot;hotelId&quot;) Integer hotelId);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    int getRoomCurNum(@Param(&quot;hotelId&quot;) Integer hotelId,@Param(&quot;roomId&quot;) Integer roomId);
+<i>22</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

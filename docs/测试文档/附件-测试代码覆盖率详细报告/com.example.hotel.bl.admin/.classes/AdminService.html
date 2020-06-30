@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AdminService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.bl.admin</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AdminService (com.example.hotel.bl.admin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">AdminService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.bl.admin;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.User;
+<i>4</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>5</i>&nbsp;import com.example.hotel.vo.UserForm;
+<i>6</i>&nbsp;import com.example.hotel.vo.UserVO;
+<i>7</i>&nbsp;import com.example.hotel.vo.HotelVO;
+<i>8</i>&nbsp;import org.springframework.web.multipart.MultipartFile;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * @Author: chenyizong
+<i>14</i>&nbsp; * @Date: 2020-03-04
+<i>15</i>&nbsp; */
+<i>16</i>&nbsp;public interface AdminService {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * 添加所有类型的用户账号
+<i>20</i>&nbsp;     * @param userVO
+<i>21</i>&nbsp;     * @return
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    ResponseVO addUser(UserVO userVO);
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * 获得所有酒店管理人员信息
+<i>27</i>&nbsp;     * @return
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    List&lt;UserVO&gt; getUserList(String type);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * 更新用户信息
+<i>33</i>&nbsp;     * @param userVO
+<i>34</i>&nbsp;     * @return
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    ResponseVO updateUserInfo(UserVO userVO);
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * 添加酒店
+<i>41</i>&nbsp;     * @param hotelVO
+<i>42</i>&nbsp;     * @return
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    ResponseVO addHotel(HotelVO hotelVO);
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * 更新酒店的managerId
+<i>48</i>&nbsp;     * @param hotelVO
+<i>49</i>&nbsp;     * @return
+<i>50</i>&nbsp;     */
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    ResponseVO updateHotel(HotelVO hotelVO);
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * 获取用户信息
+<i>56</i>&nbsp;     * @param id
+<i>57</i>&nbsp;     * @return
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    ResponseVO getUserInfo(int id);
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * 上传图片
+<i>63</i>&nbsp;     * @param hotelId
+<i>64</i>&nbsp;     * @param file
+<i>65</i>&nbsp;     * @return
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    ResponseVO uploadFile(String hotelId,MultipartFile file);
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * 删除hotelId的酒店
+<i>71</i>&nbsp;     * @param hotelId
+<i>72</i>&nbsp;     * @return
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    ResponseVO deleteHotel(int hotelId);
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * 删除userId的用户
+<i>78</i>&nbsp;     * @param userId
+<i>79</i>&nbsp;     * @return
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    ResponseVO deleteUser(int userId);
+<i>82</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

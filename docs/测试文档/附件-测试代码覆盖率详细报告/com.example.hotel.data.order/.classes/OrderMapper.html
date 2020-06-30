@@ -1,0 +1,101 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OrderMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.data.order</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OrderMapper (com.example.hotel.data.order)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">OrderMapper$MockitoMock$1722433358</td>
+  </tr>
+  <tr>
+    <td class="name">OrderMapper$MockitoMock$1722433358$auxiliary$ayRwsPtK</td>
+  </tr>
+  <tr>
+    <td class="name">OrderMapper$MockitoMock$1722433358$auxiliary$tZAYHrHn</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.data.order;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Order;
+<i>4</i>&nbsp;import com.example.hotel.vo.OrderVO;
+<i>5</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>6</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>8</i>&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * @Author: chenyizong
+<i>14</i>&nbsp; * @Date: 2020-03-04
+<i>15</i>&nbsp; */
+<i>16</i>&nbsp;@Mapper
+<i>17</i>&nbsp;@Repository
+<i>18</i>&nbsp;public interface OrderMapper {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;  int addOrder(Order order);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;  List&lt;Order&gt; getAllOrders();
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;  List&lt;Order&gt; getUserOrders(@Param(&quot;userid&quot;) int userid);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;  int annulOrder(@Param(&quot;orderid&quot;) int orderid);
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;  Order getOrderById(@Param(&quot;orderid&quot;) int orderid);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;  int executeOrder(@Param(&quot;orderid&quot;) int orderid, @Param(&quot;checkInDate&quot;) String checkInDate);
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;  int checkoutOrder(@Param(&quot;orderid&quot;) int orderid, @Param(&quot;checkOutDate&quot;) String checkOutDate);
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;  List&lt;Order&gt; getExceptionOrders();
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;  List&lt;Order&gt; getHotelOrders(@Param(&quot;hotelid&quot;) int hotelid);
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;  List&lt;Order&gt; getEvaluations(@Param(&quot;hotelid&quot;) int hotelid);
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;  int appealOrder(@Param(&quot;orderId&quot;) int orderId);
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;  int changeOrderStateToException(@Param(&quot;orderId&quot;) int orderId);
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;  void makeEvaluation(@Param(&quot;orderId&quot;) int orderId, @Param(&quot;evaluation&quot;) String evaluation);
+<i>45</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

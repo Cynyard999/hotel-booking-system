@@ -1,0 +1,75 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CouponMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.data.coupon</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CouponMapper (com.example.hotel.data.coupon)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">CouponMapper$MockitoMock$1817775909</td>
+  </tr>
+  <tr>
+    <td class="name">CouponMapper$MockitoMock$1817775909$auxiliary$eKbmJUBs</td>
+  </tr>
+  <tr>
+    <td class="name">CouponMapper$MockitoMock$1817775909$auxiliary$qsKEPySq</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.data.coupon;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Coupon;
+<i>4</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>5</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;@Mapper
+<i>10</i>&nbsp;@Repository
+<i>11</i>&nbsp;public interface CouponMapper {
+<i>12</i>&nbsp;    int insertCoupon(Coupon coupon);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    List&lt;Coupon&gt; selectByHotelId(Integer hotelId);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    List&lt;Coupon&gt; selectWebsiteCoupon();
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    int deleteCoupon(Integer couponId);
+<i>19</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

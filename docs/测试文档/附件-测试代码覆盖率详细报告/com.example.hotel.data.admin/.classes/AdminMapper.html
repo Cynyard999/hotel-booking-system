@@ -1,0 +1,96 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AdminMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.data.admin</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AdminMapper (com.example.hotel.data.admin)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">AdminMapper$MockitoMock$1712953425</td>
+  </tr>
+  <tr>
+    <td class="name">AdminMapper$MockitoMock$1712953425$auxiliary$ONgVlv9S</td>
+  </tr>
+  <tr>
+    <td class="name">AdminMapper$MockitoMock$1712953425$auxiliary$qCYsx0XS</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.data.admin;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.User;
+<i>4</i>&nbsp;import com.example.hotel.po.Hotel;
+<i>5</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>6</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * @Author: chenyizong
+<i>13</i>&nbsp; * @Date: 2020-03-04
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;@Mapper
+<i>16</i>&nbsp;@Repository
+<i>17</i>&nbsp;public interface AdminMapper {
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    int addUser(User user);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    List&lt;User&gt; getUserList(String type);
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    int updateUserInfo(User user);
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    int addHotel(Hotel hotel);
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    int updateHotel(Hotel hotel);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    Hotel getHotelInfo(int hotelId);
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    int deleteHotel(int hotelId);
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    int deleteUser(int id);
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    User getUserInfo(int id);
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

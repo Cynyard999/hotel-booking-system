@@ -1,0 +1,359 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OrderServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.blImpl.order</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OrderServiceImpl (com.example.hotel.blImpl.order)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (14/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83%
+  </span>
+  <span class="absValue">
+    (127/ 153)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.blImpl.order;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.bl.creditRecord.CreditRecordService;
+<i>4</i>&nbsp;import com.example.hotel.bl.hotel.HotelService;
+<i>5</i>&nbsp;import com.example.hotel.bl.order.OrderService;
+<i>6</i>&nbsp;import com.example.hotel.bl.user.AccountService;
+<i>7</i>&nbsp;import com.example.hotel.data.order.OrderMapper;
+<i>8</i>&nbsp;import com.example.hotel.po.CreditRecord;
+<i>9</i>&nbsp;import com.example.hotel.po.Order;
+<i>10</i>&nbsp;import com.example.hotel.po.User;
+<i>11</i>&nbsp;import com.example.hotel.vo.CreditRecordVO;
+<i>12</i>&nbsp;import com.example.hotel.vo.OrderVO;
+<i>13</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>14</i>&nbsp;import org.springframework.beans.BeanUtils;
+<i>15</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>16</i>&nbsp;import org.springframework.stereotype.Service;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;import java.text.SimpleDateFormat;
+<i>19</i>&nbsp;import java.time.Duration;
+<i>20</i>&nbsp;import java.time.LocalDateTime;
+<i>21</i>&nbsp;import java.time.format.DateTimeFormatter;
+<i>22</i>&nbsp;import java.util.Date;
+<i>23</i>&nbsp;import java.util.LinkedList;
+<i>24</i>&nbsp;import java.util.List;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;/**
+<i>27</i>&nbsp; * @Author: chenyizong
+<i>28</i>&nbsp; * @Date: 2020-03-04
+<i>29</i>&nbsp; */
+<i>30</i>&nbsp;@Service()
+<b class="fc"><i>31</i>&nbsp;public class OrderServiceImpl implements OrderService {</b>
+<i>32</i>&nbsp;    private final static String RESERVE_ERROR = &quot;预订失败&quot;;
+<i>33</i>&nbsp;    private final static String ROOMNUM_LACK = &quot;预订房间数量剩余不足&quot;;
+<i>34</i>&nbsp;    private final static String CREDIT_LACK = &quot;信用值不足,无法预订酒店，请充值信用值&quot;;
+<i>35</i>&nbsp;    private final static String ANNUL_ERROR = &quot;撤销订单失败&quot;;
+<i>36</i>&nbsp;    private final static String CHECKOUT_ERROR = &quot;退房失败&quot;;
+<i>37</i>&nbsp;    private final static String APPEAL_ERROR = &quot;申诉失败&quot;;
+<i>38</i>&nbsp;    private final static String EVALUATE_ERROR = &quot;评价失败&quot;;
+<i>39</i>&nbsp;    @Autowired
+<i>40</i>&nbsp;    OrderMapper orderMapper;
+<i>41</i>&nbsp;    @Autowired
+<i>42</i>&nbsp;    HotelService hotelService;
+<i>43</i>&nbsp;    @Autowired
+<i>44</i>&nbsp;    AccountService accountService;
+<i>45</i>&nbsp;    @Autowired
+<i>46</i>&nbsp;    CreditRecordService creditRecordService;
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    @Override
+<i>49</i>&nbsp;    public ResponseVO addOrder(OrderVO orderVO) {
+<b class="fc"><i>50</i>&nbsp;        int reserveRoomNum = orderVO.getRoomNum();</b>
+<b class="fc"><i>51</i>&nbsp;        int curNum = hotelService.getRoomCurNum(orderVO.getHotelId(),orderVO.getRoomId());</b>
+<b class="fc"><i>52</i>&nbsp;        if(reserveRoomNum&gt;curNum){</b>
+<b class="fc"><i>53</i>&nbsp;            return ResponseVO.buildFailure(ROOMNUM_LACK);</b>
+<i>54</i>&nbsp;        }
+<b class="fc"><i>55</i>&nbsp;        else if(accountService.getUserInfo(orderVO.getUserId()).getCredit()==0){</b>
+<b class="fc"><i>56</i>&nbsp;            return ResponseVO.buildFailure(CREDIT_LACK);</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;        try {
+<b class="fc"><i>59</i>&nbsp;            SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+<b class="fc"><i>60</i>&nbsp;            Date date = new Date(System.currentTimeMillis());</b>
+<b class="fc"><i>61</i>&nbsp;            String curdate = sf.format(date);</b>
+<b class="fc"><i>62</i>&nbsp;            orderVO.setCreateDate(curdate);</b>
+<b class="fc"><i>63</i>&nbsp;            orderVO.setOrderState(&quot;已预订&quot;);</b>
+<b class="fc"><i>64</i>&nbsp;            User user = accountService.getUserInfo(orderVO.getUserId());</b>
+<b class="fc"><i>65</i>&nbsp;            orderVO.setClientName(user.getUserName());</b>
+<b class="fc"><i>66</i>&nbsp;            orderVO.setPhoneNumber(user.getPhoneNumber());</b>
+<b class="fc"><i>67</i>&nbsp;            Order order = new Order();</b>
+<b class="fc"><i>68</i>&nbsp;            BeanUtils.copyProperties(orderVO,order);</b>
+<b class="fc"><i>69</i>&nbsp;            orderMapper.addOrder(order);</b>
+<b class="fc"><i>70</i>&nbsp;            hotelService.updateRoomInfo(orderVO.getHotelId(),orderVO.getRoomType(),orderVO.getRoomNum());</b>
+<b class="nc"><i>71</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>72</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>73</i>&nbsp;            return ResponseVO.buildFailure(RESERVE_ERROR);</b>
+<b class="fc"><i>74</i>&nbsp;        }</b>
+<b class="fc"><i>75</i>&nbsp;       return ResponseVO.buildSuccess(true);</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    @Override
+<i>79</i>&nbsp;    public List&lt;Order&gt; getAllOrders() {
+<b class="fc"><i>80</i>&nbsp;        return orderMapper.getAllOrders();</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    @Override
+<i>84</i>&nbsp;    public List&lt;Order&gt; getUserOrders(int userid) {
+<b class="fc"><i>85</i>&nbsp;        return orderMapper.getUserOrders(userid);</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    @Override
+<i>89</i>&nbsp;    public List&lt;Order&gt; getHotelOrders(Integer hotelId){
+<b class="fc"><i>90</i>&nbsp;        return orderMapper.getHotelOrders(hotelId);</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;    @Override
+<i>93</i>&nbsp;    public List&lt;Order&gt; getEvaluations(Integer hotelId){
+<b class="nc"><i>94</i>&nbsp;        return orderMapper.getEvaluations(hotelId);</b>
+<i>95</i>&nbsp;    }
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    @Override
+<i>98</i>&nbsp;    public List&lt;Double&gt; showSales(Integer hotelId){
+<b class="fc"><i>99</i>&nbsp;        List&lt;Double&gt; result = new LinkedList&lt;&gt;();;</b>
+<b class="fc"><i>100</i>&nbsp;        List&lt;Order&gt; orders=getHotelOrders(hotelId);</b>
+<b class="fc"><i>101</i>&nbsp;        LocalDateTime current = LocalDateTime.now();</b>
+<b class="fc"><i>102</i>&nbsp;        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</b>
+<b class="fc"><i>103</i>&nbsp;        double result0=0;  //累计营业额</b>
+<b class="fc"><i>104</i>&nbsp;        double result1=0;  //近一周营业额</b>
+<b class="fc"><i>105</i>&nbsp;        for(Order i:orders){</b>
+<b class="fc"><i>106</i>&nbsp;            result0+=i.getPrice();</b>
+<b class="fc"><i>107</i>&nbsp;            if(i.getOrderState().equals(&quot;已完成&quot;) &amp;&amp; LocalDateTime.parse(i.getCheckInDate(), dtf).isBefore(current) &amp;&amp; Duration.between(LocalDateTime.parse(i.getCheckInDate(), dtf),current).toDays()&lt;7){</b>
+<b class="nc"><i>108</i>&nbsp;                result1+=i.getPrice();</b>
+<i>109</i>&nbsp;            }
+<b class="fc"><i>110</i>&nbsp;        }</b>
+<b class="fc"><i>111</i>&nbsp;        result.add(result0);</b>
+<b class="fc"><i>112</i>&nbsp;        result.add(result1);</b>
+<b class="fc"><i>113</i>&nbsp;        return result;</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    @Override
+<i>117</i>&nbsp;    public ResponseVO annulOrder(int orderid) {
+<i>118</i>&nbsp;        //取消订单逻辑的具体实现（注意可能有和别的业务类之间的交互）
+<b class="fc"><i>119</i>&nbsp;        Order order = orderMapper.getOrderById(orderid);</b>
+<b class="fc"><i>120</i>&nbsp;        String checkInDate = order.getCheckInDate();</b>
+<b class="fc"><i>121</i>&nbsp;        SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+<i>122</i>&nbsp;        Date latestCheckInTime;
+<i>123</i>&nbsp;        try{
+<b class="fc"><i>124</i>&nbsp;            latestCheckInTime = sf.parse(checkInDate);</b>
+<b class="nc"><i>125</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>126</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>127</i>&nbsp;            return ResponseVO.buildFailure(ANNUL_ERROR);</b>
+<b class="fc"><i>128</i>&nbsp;        }</b>
+<b class="fc"><i>129</i>&nbsp;        Date current = new Date(System.currentTimeMillis());</b>
+<b class="fc"><i>130</i>&nbsp;        if((latestCheckInTime.getTime()-current.getTime())/60*60*1000&lt;6){</b>
+<b class="fc"><i>131</i>&nbsp;            double beforeCredit = accountService.getUserInfo(order.getUserId()).getCredit();</b>
+<b class="fc"><i>132</i>&nbsp;            double change = Math.min(beforeCredit, order.getPrice() / 10);</b>
+<b class="fc"><i>133</i>&nbsp;            accountService.updateUserCredit(order.getUserId(),-change);</b>
+<b class="fc"><i>134</i>&nbsp;            CreditRecordVO creditRecordVO = new CreditRecordVO();</b>
+<b class="fc"><i>135</i>&nbsp;            creditRecordVO.setUserId(order.getUserId());</b>
+<b class="fc"><i>136</i>&nbsp;            creditRecordVO.setOrderId(orderid);</b>
+<b class="fc"><i>137</i>&nbsp;            creditRecordVO.setChangeAction(&quot;订单撤销&quot;);</b>
+<b class="fc"><i>138</i>&nbsp;            creditRecordVO.setChangeValue(-order.getPrice()/10);</b>
+<b class="fc"><i>139</i>&nbsp;            creditRecordVO.setChangeTime(sf.format(current));</b>
+<b class="fc"><i>140</i>&nbsp;            creditRecordVO.setFinalValue(accountService.getUserInfo(order.getUserId()).getCredit());</b>
+<b class="fc"><i>141</i>&nbsp;            creditRecordService.addCreditRecord(creditRecordVO);</b>
+<i>142</i>&nbsp;        }
+<b class="fc"><i>143</i>&nbsp;        hotelService.updateRoomInfo(order.getHotelId(), order.getRoomType(), -order.getRoomNum());</b>
+<b class="fc"><i>144</i>&nbsp;        orderMapper.annulOrder(orderid);</b>
+<b class="fc"><i>145</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>146</i>&nbsp;    }
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    @Override
+<i>149</i>&nbsp;    public Order getOrderById(int orderid){
+<b class="fc"><i>150</i>&nbsp;        return orderMapper.getOrderById(orderid);</b>
+<i>151</i>&nbsp;    }
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;    @Override
+<i>154</i>&nbsp;    public ResponseVO executeOrder(int orderid){
+<b class="fc"><i>155</i>&nbsp;        Order order = orderMapper.getOrderById(orderid);</b>
+<b class="fc"><i>156</i>&nbsp;        SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+<b class="fc"><i>157</i>&nbsp;        Date date = new Date(System.currentTimeMillis());</b>
+<b class="fc"><i>158</i>&nbsp;        String checkInDate = sf.format(date);</b>
+<b class="fc"><i>159</i>&nbsp;        if(!checkInDate.equals(order.getCheckInDate()))return ResponseVO.buildFailure(&quot;入住时间还未到，无法入住&quot;);</b>
+<b class="fc"><i>160</i>&nbsp;        CreditRecordVO creditRecordVO = new CreditRecordVO();</b>
+<b class="fc"><i>161</i>&nbsp;        creditRecordVO.setUserId(order.getUserId());</b>
+<b class="fc"><i>162</i>&nbsp;        creditRecordVO.setOrderId(orderid);</b>
+<b class="fc"><i>163</i>&nbsp;        creditRecordVO.setChangeAction(&quot;订单执行&quot;);</b>
+<b class="fc"><i>164</i>&nbsp;        if(order.getOrderState().equals(&quot;异常&quot;)){</b>
+<b class="fc"><i>165</i>&nbsp;            accountService.updateUserCredit(order.getUserId(), order.getPrice()/20);</b>
+<b class="fc"><i>166</i>&nbsp;            creditRecordVO.setChangeValue(order.getPrice()/20);</b>
+<i>167</i>&nbsp;        }
+<i>168</i>&nbsp;        else {
+<b class="fc"><i>169</i>&nbsp;            accountService.updateUserCredit(order.getUserId(),order.getPrice()/10);</b>
+<b class="fc"><i>170</i>&nbsp;            creditRecordVO.setChangeValue(order.getPrice()/10);</b>
+<i>171</i>&nbsp;        }
+<b class="fc"><i>172</i>&nbsp;        creditRecordVO.setChangeTime(checkInDate);</b>
+<b class="fc"><i>173</i>&nbsp;        creditRecordVO.setFinalValue(accountService.getUserInfo(order.getUserId()).getCredit());</b>
+<b class="fc"><i>174</i>&nbsp;        creditRecordService.addCreditRecord(creditRecordVO);</b>
+<b class="fc"><i>175</i>&nbsp;        orderMapper.executeOrder(orderid, checkInDate);</b>
+<b class="fc"><i>176</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    @Override
+<i>180</i>&nbsp;    public ResponseVO checkOutOrder(int orderid){
+<b class="fc"><i>181</i>&nbsp;        Order order = orderMapper.getOrderById(orderid);</b>
+<b class="fc"><i>182</i>&nbsp;        hotelService.updateRoomInfo(order.getHotelId(), order.getRoomType(), -order.getRoomNum());</b>
+<b class="fc"><i>183</i>&nbsp;        SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+<b class="fc"><i>184</i>&nbsp;        Date date = new Date(System.currentTimeMillis());</b>
+<b class="fc"><i>185</i>&nbsp;        String checkOutDate = sf.format(date);</b>
+<i>186</i>&nbsp;        try {
+<b class="fc"><i>187</i>&nbsp;            orderMapper.checkoutOrder(orderid, checkOutDate);</b>
+<b class="nc"><i>188</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>189</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>190</i>&nbsp;            return ResponseVO.buildFailure(CHECKOUT_ERROR);</b>
+<b class="fc"><i>191</i>&nbsp;        }</b>
+<b class="fc"><i>192</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>193</i>&nbsp;    }
+<i>194</i>&nbsp;
+<i>195</i>&nbsp;    @Override
+<i>196</i>&nbsp;    public List&lt;Order&gt; getExceptionOrders() {
+<b class="fc"><i>197</i>&nbsp;        return orderMapper.getExceptionOrders();</b>
+<i>198</i>&nbsp;    }
+<i>199</i>&nbsp;
+<i>200</i>&nbsp;    @Override
+<i>201</i>&nbsp;    public ResponseVO processExceptionOrder(int orderId){
+<b class="fc"><i>202</i>&nbsp;        Order order = orderMapper.getOrderById(orderId);</b>
+<b class="fc"><i>203</i>&nbsp;        SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-DD&quot;);</b>
+<b class="fc"><i>204</i>&nbsp;        String date = sf.format(System.currentTimeMillis());</b>
+<b class="fc"><i>205</i>&nbsp;        CreditRecordVO creditRecordVO = new CreditRecordVO();</b>
+<b class="fc"><i>206</i>&nbsp;        creditRecordVO.setOrderId(orderId);</b>
+<b class="fc"><i>207</i>&nbsp;        creditRecordVO.setUserId(order.getUserId());</b>
+<b class="fc"><i>208</i>&nbsp;        creditRecordVO.setChangeTime(date);</b>
+<b class="fc"><i>209</i>&nbsp;        creditRecordVO.setChangeValue(order.getPrice()/2);</b>
+<b class="fc"><i>210</i>&nbsp;        creditRecordVO.setChangeAction(&quot;异常订单申诉&quot;);</b>
+<b class="fc"><i>211</i>&nbsp;        accountService.updateUserCredit(order.getUserId(),order.getPrice()/2);</b>
+<b class="fc"><i>212</i>&nbsp;        creditRecordVO.setFinalValue(accountService.getUserInfo(order.getUserId()).getCredit());</b>
+<i>213</i>&nbsp;        try{
+<b class="fc"><i>214</i>&nbsp;            orderMapper.annulOrder(orderId);</b>
+<b class="fc"><i>215</i>&nbsp;            creditRecordService.addCreditRecord(creditRecordVO);</b>
+<b class="nc"><i>216</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>217</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>218</i>&nbsp;            return ResponseVO.buildFailure(ANNUL_ERROR);</b>
+<b class="fc"><i>219</i>&nbsp;        }</b>
+<b class="fc"><i>220</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>221</i>&nbsp;    }
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;    @Override
+<i>224</i>&nbsp;    public ResponseVO appealOrder(int orderId){
+<i>225</i>&nbsp;        try{
+<b class="fc"><i>226</i>&nbsp;            orderMapper.appealOrder(orderId);</b>
+<b class="nc"><i>227</i>&nbsp;        } catch (Exception e){</b>
+<b class="nc"><i>228</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>229</i>&nbsp;            return ResponseVO.buildFailure(APPEAL_ERROR);</b>
+<b class="fc"><i>230</i>&nbsp;        }</b>
+<b class="fc"><i>231</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>232</i>&nbsp;    }
+<i>233</i>&nbsp;
+<i>234</i>&nbsp;    @Override
+<i>235</i>&nbsp;    public ResponseVO processAllLateOrders(){
+<b class="fc"><i>236</i>&nbsp;        List&lt;Order&gt; allOrder = orderMapper.getAllOrders();</b>
+<b class="fc"><i>237</i>&nbsp;        Date current = new Date(System.currentTimeMillis());</b>
+<b class="fc"><i>238</i>&nbsp;        SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+<b class="fc"><i>239</i>&nbsp;        for(Order order:allOrder){</b>
+<b class="fc"><i>240</i>&nbsp;            if(!order.getOrderState().equals(&quot;已预订&quot;))continue;</b>
+<i>241</i>&nbsp;            Date latestCheckInTime;
+<i>242</i>&nbsp;            try{
+<b class="fc"><i>243</i>&nbsp;                latestCheckInTime = sf.parse(order.getCheckInDate());</b>
+<b class="nc"><i>244</i>&nbsp;            } catch (Exception e){</b>
+<b class="nc"><i>245</i>&nbsp;                System.out.println(e.getMessage());</b>
+<b class="nc"><i>246</i>&nbsp;                continue;</b>
+<b class="fc"><i>247</i>&nbsp;            }</b>
+<b class="fc"><i>248</i>&nbsp;            if(latestCheckInTime.getTime()+24*60*60*1000&lt;current.getTime()){</b>
+<b class="fc"><i>249</i>&nbsp;                double beforeCredit = accountService.getUserInfo(order.getUserId()).getCredit();</b>
+<b class="fc"><i>250</i>&nbsp;                double change = Math.min(beforeCredit, order.getPrice() / 10);</b>
+<b class="fc"><i>251</i>&nbsp;                accountService.updateUserCredit(order.getUserId(),-change);</b>
+<b class="fc"><i>252</i>&nbsp;                CreditRecordVO creditRecordVO = new CreditRecordVO();</b>
+<b class="fc"><i>253</i>&nbsp;                creditRecordVO.setOrderId(order.getId());</b>
+<b class="fc"><i>254</i>&nbsp;                creditRecordVO.setUserId(order.getUserId());</b>
+<b class="fc"><i>255</i>&nbsp;                creditRecordVO.setChangeAction(&quot;订单超时&quot;);</b>
+<b class="fc"><i>256</i>&nbsp;                creditRecordVO.setChangeValue(-order.getPrice()/10);</b>
+<b class="fc"><i>257</i>&nbsp;                creditRecordVO.setChangeTime(order.getCheckInDate());</b>
+<b class="fc"><i>258</i>&nbsp;                creditRecordVO.setFinalValue(accountService.getUserInfo(order.getUserId()).getCredit());</b>
+<b class="fc"><i>259</i>&nbsp;                creditRecordService.addCreditRecord(creditRecordVO);</b>
+<b class="fc"><i>260</i>&nbsp;                orderMapper.changeOrderStateToException(order.getId());</b>
+<i>261</i>&nbsp;            }
+<b class="fc"><i>262</i>&nbsp;        }</b>
+<b class="fc"><i>263</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>264</i>&nbsp;    }
+<i>265</i>&nbsp;
+<i>266</i>&nbsp;    @Override
+<i>267</i>&nbsp;    public ResponseVO makeEvaluation(int orderId, String evaluation) {
+<i>268</i>&nbsp;        try {
+<b class="nc"><i>269</i>&nbsp;            orderMapper.makeEvaluation(orderId,evaluation);</b>
+<b class="nc"><i>270</i>&nbsp;        }catch (Exception e){</b>
+<b class="nc"><i>271</i>&nbsp;            System.out.println(e.getMessage());</b>
+<b class="nc"><i>272</i>&nbsp;            return ResponseVO.buildFailure(EVALUATE_ERROR);</b>
+<b class="nc"><i>273</i>&nbsp;        }</b>
+<b class="nc"><i>274</i>&nbsp;        return ResponseVO.buildSuccess(true);</b>
+<i>275</i>&nbsp;    }
+<i>276</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

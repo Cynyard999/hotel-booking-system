@@ -1,0 +1,115 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HotelStar</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.enums</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HotelStar (com.example.hotel.enums)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HotelStar</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.enums;
+<i>2</i>&nbsp;
+<b class="nc"><i>3</i>&nbsp;public enum HotelStar {</b>
+<b class="nc"><i>4</i>&nbsp;    Five(&quot;五星级&quot;),</b>
+<b class="nc"><i>5</i>&nbsp;    Four(&quot;四星级&quot;),</b>
+<b class="nc"><i>6</i>&nbsp;    Three(&quot;三星级&quot;);</b>
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    private String value;
+<i>10</i>&nbsp;
+<b class="nc"><i>11</i>&nbsp;    HotelStar(String value) {</b>
+<b class="nc"><i>12</i>&nbsp;        this.value = value;</b>
+<i>13</i>&nbsp;    }
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    public static HotelStar format(String value){
+<b class="nc"><i>16</i>&nbsp;        switch (value) {</b>
+<i>17</i>&nbsp;            case &quot;五星级&quot;:
+<b class="nc"><i>18</i>&nbsp;                return Five;</b>
+<i>19</i>&nbsp;            case &quot;四星级&quot;:
+<b class="nc"><i>20</i>&nbsp;                return Four;</b>
+<i>21</i>&nbsp;            case &quot;三星级&quot;:
+<b class="nc"><i>22</i>&nbsp;                return Three;</b>
+<i>23</i>&nbsp;            default:
+<b class="nc"><i>24</i>&nbsp;                return null;</b>
+<i>25</i>&nbsp;        }
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public String toString() {
+<b class="nc"><i>30</i>&nbsp;        return value;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

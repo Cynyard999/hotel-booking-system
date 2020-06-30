@@ -1,0 +1,121 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HotelService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.bl.hotel</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HotelService (com.example.hotel.bl.hotel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">HotelService$MockitoMock$1033082087</td>
+  </tr>
+  <tr>
+    <td class="name">HotelService$MockitoMock$1033082087$auxiliary$U12wvxWg</td>
+  </tr>
+  <tr>
+    <td class="name">HotelService$MockitoMock$1033082087$auxiliary$xKIBv46n</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.bl.hotel;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.HotelRoom;
+<i>4</i>&nbsp;import com.example.hotel.po.Order;
+<i>5</i>&nbsp;import com.example.hotel.util.ServiceException;
+<i>6</i>&nbsp;import com.example.hotel.vo.CouponVO;
+<i>7</i>&nbsp;import com.example.hotel.vo.HotelInfoVO;
+<i>8</i>&nbsp;import com.example.hotel.vo.HotelVO;
+<i>9</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public interface HotelService {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * 维护酒店基本信息
+<i>17</i>&nbsp;     * @param hotelInfoVO
+<i>18</i>&nbsp;     * @param id
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    ResponseVO updateHotelInfo(HotelInfoVO hotelInfoVO,Integer id);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * 预订酒店修改剩余客房信息
+<i>24</i>&nbsp;     * @param hotelId
+<i>25</i>&nbsp;     * @param roomType
+<i>26</i>&nbsp;     * @param rooms 指房间数量变化，减少为正数，增加应为负数
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    void updateRoomInfo(Integer hotelId, String roomType,Integer rooms);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * 列表获取酒店信息
+<i>32</i>&nbsp;     * @return
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    List&lt;HotelVO&gt; retrieveHotels();
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * 获取某家酒店详细信息
+<i>38</i>&nbsp;     * @param hotelId
+<i>39</i>&nbsp;     * @return
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    HotelVO retrieveHotelDetails(Integer hotelId);
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * 获取某家酒店详细信息,通过酒店工作人员ID
+<i>45</i>&nbsp;     * @param managerId
+<i>46</i>&nbsp;     * @return
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    HotelVO retrieveHotelDetailByManager(Integer managerId);
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * 查看酒店剩余某种房间数量(根据roomId选择)
+<i>52</i>&nbsp;     * @param hotelId
+<i>53</i>&nbsp;     * @param roomId
+<i>54</i>&nbsp;     * @return
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    int getRoomCurNum(Integer hotelId,Integer roomId);
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * 给酒店打分
+<i>60</i>&nbsp;     * @param hotelId
+<i>61</i>&nbsp;     * @param rate
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    ResponseVO rate(Integer hotelId, Double rate);
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

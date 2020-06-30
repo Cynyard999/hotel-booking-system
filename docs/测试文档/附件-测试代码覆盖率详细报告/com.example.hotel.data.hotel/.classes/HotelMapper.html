@@ -1,0 +1,80 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HotelMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.data.hotel</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HotelMapper (com.example.hotel.data.hotel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">HotelMapper$MockitoMock$568139951</td>
+  </tr>
+  <tr>
+    <td class="name">HotelMapper$MockitoMock$568139951$auxiliary$0kxZGAB3</td>
+  </tr>
+  <tr>
+    <td class="name">HotelMapper$MockitoMock$568139951$auxiliary$adOeDXrY</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.data.hotel;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Hotel;
+<i>4</i>&nbsp;import com.example.hotel.vo.HotelVO;
+<i>5</i>&nbsp;import org.apache.ibatis.annotations.Mapper;
+<i>6</i>&nbsp;import org.apache.ibatis.annotations.Param;
+<i>7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;@Mapper
+<i>12</i>&nbsp;@Repository
+<i>13</i>&nbsp;public interface HotelMapper {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    List&lt;Hotel&gt; selectAllHotel();
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    Hotel selectById(@Param(&quot;id&quot;) Integer id);
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    Hotel selectByManagerId(@Param(&quot;manager_id&quot;) Integer manager_id);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    int updateHotel(Hotel hotel);
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    void rate(@Param(&quot;hotelId&quot;) Integer hotelId,@Param(&quot;rate&quot;) Double rate);
+<i>24</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>
