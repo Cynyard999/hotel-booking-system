@@ -1,0 +1,23 @@
+spring:
+  datasource:
+
+    url: jdbc:mysql://localhost:3306/Hotel?serverTimezone=CTT&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-active: 200
+    max-idle: 20
+    min-idle: 10
+
+  thymeleaf:
+     cache: false
+  jackson:
+    time-zone: GMT+8
+
+mybatis:
+  mapper-locations: classpath:dataImpl/*/*Mapper.xml
+oss:
+  accessKeyId: LTAI4G4F2DHQ3qZGEK9xVn1D
+  accessKeySecret: jFaOMD78Lxx0CMdXBUgQx5p5PR8tFZ
+  bucketName: hotel-booking-system
+  endpoint: oss-cn-beijing.aliyuncs.com

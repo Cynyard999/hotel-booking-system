@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotel.data.creditRecord.CreditRecordMapper">
+
+    <select id="getUserCreditRecord">
+        select * from creditrecord where user_id = #{userid}
+    </select>
+
+    <insert id="addCreditRecord" parameterType="com.example.hotel.po.CreditRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into creditrecord(order_id, user_id, change_action, change_time, change_value, after_change_value)
+        values(#{orderId},#{userId},#{changeAction},#{changeTime},#{changeValue},#{finalValue})
+    </insert>
+
+    <resultMap id="CreditRecord" type="com.example.hotel.po.CreditRecord">
+        <id column="id" property="id"></id>
+        <result column="order_id" property="orderId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="change_action" property="changeAction"></result>
+        <result column="change_time" property="changeTime"></result>
+        <result column="change_value" property="changeValue"></result>
+        <result column="after_change_value" property="finalValue"></result>
+    </resultMap>
+</mapper>
