@@ -150,7 +150,12 @@ CREATE TABLE `OrderList` (
 -- Dumping data for table `OrderList`
 --
 
-INSERT INTO `OrderList` (`id`, `userId`, `hotelId`, `hotelName`, `checkInDate`, `checkOutDate`, `roomType`, `roomNum`, `peopleNum`, `haveChild`, `createDate`, `price`, `clientName`, `phoneNumber`, `orderState`, `evaluation`) VALUES (1,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已完成',''),(2,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已撤销',''),(3,9,2,'乐优居精品公寓','2020-06-10','2020-06-12','Family',1,1,'0','2020-06-01',299.00,'Jack','12345678919','已完成','不好'),(4,9,2,'乐优居精品公寓','2020-06-20','2020-06-21','Family',1,1,'0','2020-06-19',299.00,'Jack','12345678919','异常',''),(5,9,2,'乐优居精品公寓','2020-06-25','2020-06-26','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已申诉','');
+INSERT INTO `OrderList` (`id`, `userId`, `hotelId`, `hotelName`, `checkInDate`, `checkOutDate`, `roomType`, `roomNum`, `peopleNum`, `haveChild`, `createDate`, `price`, `clientName`, `phoneNumber`, `orderState`, `evaluation`)
+VALUES (1,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已预订',''),
+       (2,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已撤销',''),
+       (3,9,2,'乐优居精品公寓','2020-06-10','2020-06-12','Family',1,1,'0','2020-06-01',299.00,'Jack','12345678919','已完成','不好'),
+       (4,9,2,'乐优居精品公寓','2020-06-20','2020-06-21','Family',1,1,'0','2020-06-19',299.00,'Jack','12345678919','异常',''),
+       (5,9,2,'乐优居精品公寓','2020-06-25','2020-06-26','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已申诉','');
 
 --
 -- Table structure for table `Room`
