@@ -43,7 +43,7 @@ CREATE TABLE `Coupon` (
 -- Dumping data for table `Coupon`
 --
 
-INSERT INTO `Coupon` (`id`, `description`, `hotelId`, `couponType`, `couponName`, `roomNum`, `target_money`, `discount`, `status`, `start_time`, `end_time`, `discount_money`) VALUES (1,'满500-100优惠！',2,3,'满减优惠券',NULL,500,NULL,1,NULL,NULL,100),(2,'满3间九折优惠',2,2,'多间特惠券',3,NULL,0.9,1,NULL,NULL,NULL),(3,'6月27日-7月1日下单立刻享受九五折优惠',2,4,'限时优惠券',NULL,NULL,0.95,1,'2020-06-27','2020-07-01',NULL),(4,'国庆节出游享九折优惠',2,5,'节日优惠券',NULL,NULL,0.9,1,'2020-10-01','2020-10-08',NULL),(5,'个人会员专属生日优惠',-1,1,'生日优惠券',NULL,NULL,0.9,1,NULL,NULL,NULL),(6,'企业会员专属入住优惠',-1,6,'企业优惠券',NULL,NULL,0.8,1,NULL,NULL,NULL);
+INSERT INTO `Coupon` (`id`, `description`, `hotelId`, `couponType`, `couponName`, `roomNum`, `target_money`, `discount`, `status`, `start_time`, `end_time`, `discount_money`) VALUES (1,'满500-100优惠！',2,3,'满减优惠券',NULL,500,NULL,1,NULL,NULL,100),(2,'满3间九折优惠',2,2,'多间优惠券',3,NULL,0.9,1,NULL,NULL,NULL),(3,'6月27日-7月1日下单立刻享受九五折优惠',2,4,'限时优惠券',NULL,NULL,0.95,1,'2020-06-27','2020-07-01',NULL),(4,'国庆节出游享九折优惠',2,5,'节日优惠券',NULL,NULL,0.9,1,'2020-10-01','2020-10-08',NULL),(5,'个人会员专属生日优惠',-1,1,'生日优惠券',NULL,NULL,0.9,1,NULL,NULL,NULL),(6,'企业会员专属入住优惠',-1,6,'企业优惠券',NULL,NULL,0.8,1,NULL,NULL,NULL);
 
 --
 -- Table structure for table `CreditRecord`
@@ -129,6 +129,7 @@ CREATE TABLE `OrderList` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int DEFAULT NULL,
   `hotelId` int DEFAULT NULL,
+  `roomId` int DEFAULT NULL,
   `hotelName` varchar(255) DEFAULT NULL,
   `checkInDate` varchar(255) DEFAULT NULL,
   `checkOutDate` varchar(255) DEFAULT NULL,
@@ -150,12 +151,7 @@ CREATE TABLE `OrderList` (
 -- Dumping data for table `OrderList`
 --
 
-INSERT INTO `OrderList` (`id`, `userId`, `hotelId`, `hotelName`, `checkInDate`, `checkOutDate`, `roomType`, `roomNum`, `peopleNum`, `haveChild`, `createDate`, `price`, `clientName`, `phoneNumber`, `orderState`, `evaluation`)
-VALUES (1,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已预订',''),
-       (2,9,2,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已撤销',''),
-       (3,9,2,'乐优居精品公寓','2020-06-10','2020-06-12','Family',1,1,'0','2020-06-01',299.00,'Jack','12345678919','已完成','不好'),
-       (4,9,2,'乐优居精品公寓','2020-06-20','2020-06-21','Family',1,1,'0','2020-06-19',299.00,'Jack','12345678919','异常',''),
-       (5,9,2,'乐优居精品公寓','2020-06-25','2020-06-26','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已申诉','');
+INSERT INTO `OrderList` (`id`, `userId`, `hotelId`, `roomId`,`hotelName`, `checkInDate`, `checkOutDate`, `roomType`, `roomNum`, `peopleNum`, `haveChild`, `createDate`, `price`, `clientName`, `phoneNumber`, `orderState`, `evaluation`) VALUES (1,9,2,3,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已完成',''),(2,9,2,3,'乐优居精品公寓','2020-07-01','2020-07-02','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已撤销',''),(3,9,2,3,'乐优居精品公寓','2020-06-10','2020-06-12','Family',1,1,'0','2020-06-01',299.00,'Jack','12345678919','已完成','不好'),(4,9,2,3,'乐优居精品公寓','2020-06-20','2020-06-21','Family',1,1,'0','2020-06-19',299.00,'Jack','12345678919','异常',''),(5,9,2,3,'乐优居精品公寓','2020-06-25','2020-06-26','Family',1,1,'0','2020-06-24',299.00,'Jack','12345678919','已申诉','');
 
 --
 -- Table structure for table `Room`
@@ -179,7 +175,7 @@ CREATE TABLE `Room` (
 -- Dumping data for table `Room`
 --
 
-INSERT INTO `Room` (`id`, `price`, `curNum`, `total`, `hotel_id`, `roomType`) VALUES (1,799,10,10,1,'Family'),(2,199,20,20,1,'BigBed'),(3,299,30,30,2,'DoubleBed'),(4,399,13,10,2,'Family'),(5,122,7,0,3,'BigBed'),(6,399,10,10,3,'Family'),(7,299,30,30,4,'DoubleBed'),(8,399,10,10,4,'Family');
+INSERT INTO `Room` (`id`, `price`, `curNum`, `total`, `hotel_id`, `roomType`) VALUES (1,799,10,10,1,'Family'),(2,199,20,20,1,'BigBed'),(3,299,30,25,2,'DoubleBed'),(4,399,13,13,2,'Family'),(5,122,7,7,3,'BigBed'),(6,399,10,10,3,'Family'),(7,299,30,30,4,'DoubleBed'),(8,399,10,10,4,'Family');
 
 --
 -- Table structure for table `User`
@@ -204,7 +200,7 @@ CREATE TABLE `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `email`, `password`, `username`, `phonenumber`, `credit`, `usertype`) VALUES (1,'admin@qq.com','123456','管理员',NULL,NULL,'Manager'),(2,'saleMan1@qq.com','123456','网站营销人员1号','2581314',NULL,'SaleMen'),(3,'saleMan2@qq.com','123456','网站营销人员2号','2581314',NULL,'SaleMen'),(4,'saleMan3@qq.com','123456','网站营销人员3号','2581314',NULL,'SaleMen'),(5,'hotelManager1@qq.com','123456','桔子水晶南京新街口酒店工作人员','777777',1000,'HotelManager'),(6,'hotelManager2@qq.com','123456','乐优居精品公寓工作人员','777777',1000,'HotelManager'),(7,'hotelManager3@qq.com','123456','南京夜泊秦淮·南都会酒店工作人员','777777',1000,'HotelManager'),(8,'hotelManager4@qq.com','123456','南京金鹰珠江壹号国际酒店工作人员','777777',1000,'HotelManager'),(9,'user1@qq.com','123456','测试用户1号','12345678911',100,'Client'),(10,'user2@qq.com','123456','测试用户2号','12345678911',100,'Client'),(11,'user3@qq.com','123456','测试用户3号','12345678911',100,'Client');
+INSERT INTO `User` (`id`, `email`, `password`, `username`, `phonenumber`, `credit`, `usertype`) VALUES (1,'admin@qq.com','123456','管理员',NULL,NULL,'Manager'),(2,'saleMan1@qq.com','123456','网站营销人员1号','18820200101',NULL,'SaleMen'),(3,'saleMan2@qq.com','123456','网站营销人员2号','18820200102',NULL,'SaleMen'),(4,'saleMan3@qq.com','123456','网站营销人员3号','18820200103',NULL,'SaleMen'),(5,'hotelManager1@qq.com','123456','桔子水晶南京新街口酒店工作人员','18877770101',1000,'HotelManager'),(6,'hotelManager2@qq.com','123456','乐优居精品公寓工作人员','18877770102',1000,'HotelManager'),(7,'hotelManager3@qq.com','123456','南京夜泊秦淮·南都会酒店工作人员','18877770103',1000,'HotelManager'),(8,'hotelManager4@qq.com','123456','南京金鹰珠江壹号国际酒店工作人员','18877770104',1000,'HotelManager'),(9,'user1@qq.com','123456','测试用户1号','12345678911',100,'Client'),(10,'user2@qq.com','123456','测试用户2号','12345678912',100,'Client'),(11,'user3@qq.com','123456','测试用户3号','12345678913',100,'Client');
 
 --
 -- Table structure for table `Vip`

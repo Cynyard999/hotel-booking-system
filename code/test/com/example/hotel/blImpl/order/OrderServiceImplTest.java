@@ -8,6 +8,7 @@ import com.example.hotel.data.order.OrderMapper;
 import com.example.hotel.po.Order;
 import com.example.hotel.po.User;
 import com.example.hotel.vo.OrderVO;
+import com.example.hotel.vo.UserVO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Or;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -78,14 +80,14 @@ public class OrderServiceImplTest {
     }
     @Test
     public void addOrder() {
-        User user1 = new User();
-        user1.setCredit(0);
-        User user2 = new User();
-        user2.setCredit(100);
+        UserVO userVO1 = new UserVO();
+        userVO1.setCredit(0);
+        UserVO userVO2 = new UserVO();
+        userVO2.setCredit(100);
         Mockito.when(hotelService.getRoomCurNum(0,0)).thenReturn(1);
         Mockito.when(hotelService.getRoomCurNum(0,1)).thenReturn(2);
-        Mockito.when(accountService.getUserInfo(0)).thenReturn(user1);
-        Mockito.when(accountService.getUserInfo(1)).thenReturn(user2);
+        Mockito.when(accountService.getUserInfo(0)).thenReturn(userVO1);
+        Mockito.when(accountService.getUserInfo(1)).thenReturn(userVO2);
         OrderVO orderVO = new OrderVO();
         orderVO.setRoomNum(2);
         orderVO.setHotelId(0);
@@ -117,7 +119,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void annulOrder() {
-        User tempUser = new User();
+        UserVO tempUser = new UserVO();
         tempUser.setCredit(0);
         Mockito.when(accountService.getUserInfo(0)).thenReturn(tempUser);
         Assert.assertTrue(orderService.annulOrder(0).getSuccess());
@@ -126,12 +128,15 @@ public class OrderServiceImplTest {
 
     @Test
     public void getOrderById() {
+        Order order = new Order();
+        order.setOrderState("已预订");
+        Mockito.when(orderMapper.getOrderById(0)).thenReturn(order);
         Assert.assertEquals("已预订",orderService.getOrderById(0).getOrderState());
     }
 
     @Test
     public void executeOrder() {
-        User tempUser = new User();
+        UserVO tempUser = new UserVO();
         tempUser.setCredit(100);
         Order order = new Order();
         order.setPrice(100.0);
@@ -157,7 +162,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void processExceptionOrder() {
-        User temp = new User();
+        UserVO temp = new UserVO();
         temp.setCredit(100.0);
         Mockito.when(accountService.getUserInfo(0)).thenReturn(temp);
         Assert.assertTrue(orderService.processExceptionOrder(0).getSuccess());
@@ -170,7 +175,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void processAllLateOrders() {
-        User temp = new User();
+        UserVO temp = new UserVO();
         temp.setCredit(100);
         Mockito.when(accountService.getUserInfo(0)).thenReturn(temp);
         Assert.assertTrue(orderService.processAllLateOrders().getSuccess());

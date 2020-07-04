@@ -7,11 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @Author: Zzn
+ * @Date: 2020-06-13
+ */
 @Mapper
 @Repository
 public interface RoomMapper {
 
-    int updateRoomInfo(@Param("hotelId") Integer hotelId,@Param("roomType") String roomType,@Param("curNum") Integer curNum);
+    int updateRoomInfo(@Param("hotelId") Integer hotelId,@Param("roomId") Integer roomId,@Param("curNum") Integer curNum);
 
     int insertRoom(HotelRoom hotelRoom);
 

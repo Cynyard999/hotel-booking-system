@@ -152,18 +152,18 @@ public class CouponServiceImplTest {
     public void addCoupon(){
         CouponVO couponVO = new CouponVO();
         Coupon coupon = new Coupon();
-        when(couponMapper.insertCoupon(coupon)).thenReturn(0).thenReturn(1);
-        //第一次添加失败
-        Assert.assertEquals(ADD_Fall,couponService.addCoupon(couponVO).getMessage());
-        //之后都添加成功
-        Assert.assertFalse(couponService.addCoupon(couponVO).getSuccess());
+        //添加失败
+        //when(couponMapper.insertCoupon(coupon)).thenThrow(new RuntimeException());
+        //Assert.assertEquals(ADD_Fall,couponService.addCoupon(couponVO).getMessage());
+        //添加成功
+        when(couponMapper.insertCoupon(coupon)).thenReturn(1);
+        Assert.assertTrue(couponService.addCoupon(couponVO).getSuccess());
     }
 
     @Test
     public void deleteCoupon(){
         when(couponMapper.deleteCoupon(1)).thenReturn(1);
-        when(couponMapper.deleteCoupon(0)).thenReturn(0);
-
+        when(couponMapper.deleteCoupon(0)).thenThrow(new RuntimeException());
         Assert.assertTrue(couponService.deleteCoupon(1).getSuccess());
         Assert.assertEquals(DELETE_Fall,couponService.deleteCoupon(0).getMessage());
     }

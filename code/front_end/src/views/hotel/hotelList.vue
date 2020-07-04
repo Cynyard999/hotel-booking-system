@@ -9,6 +9,23 @@
       <a-menu-item key="HeXi"> <a-icon type="appstore" />河西</a-menu-item>
       <a-menu-item key="XianLin"><a-icon type="appstore" />仙林</a-menu-item>
       <a-menu-item key="JiangBei"><a-icon type="appstore" />江北</a-menu-item>
+      <a-dropdown placement="bottomCenter" style="margin-left: 100px">
+        <a-button style="background: none;margin-bottom: 8px;" icon ="caret-down">{{sortMethod}}</a-button>
+        <a-menu slot="overlay">
+          <a-menu-item  @click="sort('id')">
+            <a-icon type="home"></a-icon>
+            系统默认排序
+          </a-menu-item>
+          <a-menu-item @click="sort('rate')">
+            <a-icon type="star"></a-icon>
+            酒店评分排序
+          </a-menu-item>
+          <a-menu-item @click="sort('evaluatorNum')">
+            <a-icon type="smile"></a-icon>
+            入住人数排序
+          </a-menu-item>
+        </a-menu>
+      </a-dropdown>
     </a-menu>
     <a-layout style="background:none">
         <a-layout-content style="min-width: 800px">
@@ -38,28 +55,57 @@ export default {
       emptyBox: [{ name: 'box1' }, { name: 'box2'}, {name: 'box3'}],
       current:['All'],
       bizRegionHotelList:[],
-      currentRegion:"All"
+      currentRegion:"All",
     }
   },
   async mounted() {
     await this.getHotelList()
     this.bizRegionHotelList = this.hotelList
+    if (this.sortMethod == '系统默认排序'){
+      this.sort('id')
+    }
+    if (this.sortMethod == '酒店评分排序'){
+      this.sort('rate')
+    }
+    if (this.sortMethod == '入住人数排序'){
+      this.sort('evaluatorNum')
+    }
   },
   computed: {
     ...mapGetters([
       'hotelList',
-      'hotelListLoading'
-    ])
+      'hotelListLoading',
+      'sortMethod'
+    ]),
   },
   methods: {
     ...mapMutations([
       'set_hotelListParams',
-      'set_hotelListLoading'
+      'set_hotelListLoading',
+      'set_sortMethod'
     ]),
     ...mapActions([
       'getHotelList'
     ]),
-
+    sort(type){
+      if (type == 'id'){
+        this.set_sortMethod('系统默认排序')
+      }
+      if (type == 'rate'){
+        this.set_sortMethod('酒店评分排序')
+      }
+      if (type == 'evaluatorNum'){
+        this.set_sortMethod('入住人数排序')
+      }
+      this.bizRegionHotelList.sort(this.compare(type))
+    },
+    compare(attr) {
+      return function(a,b){
+        var val1 = a[attr];
+        var val2 = b[attr];
+        return val2 - val1;
+      }
+    },
     pageChange(page, pageSize) {
       const data = {
         pageNo: page - 1
@@ -97,6 +143,8 @@ export default {
       opacity: 1;
       background: none;
     }
+    .sort {
+    }
     .emptyBox {
       height: 0;
       margin: 50px 50px
@@ -114,6 +162,5 @@ export default {
       position: relative;
       height: 188px;
     }
-
   }
 </style>

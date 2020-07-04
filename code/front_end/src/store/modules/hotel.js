@@ -30,9 +30,13 @@ const hotel = {
 
         ],
         hotelCouponList:[],
-        evaluations:[]
+        evaluations:[],
+        sortMethod:"系统默认排序"
     },
     mutations: {
+        set_sortMethod:function(state,data){
+          state.sortMethod = data
+        },
         set_evaluations:function(state,data){
             state.evaluations = data.reverse()
         },

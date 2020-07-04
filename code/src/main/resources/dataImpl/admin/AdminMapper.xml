@@ -23,7 +23,7 @@
     <update id="updateUserInfo" parameterType="com.example.hotel.po.User" >
         update user set email=#{email},phonenumber=#{phoneNumber},username=#{userName},password=#{password} where id=#{id}
     </update>
-    <update id="updateHotel" parameterType="com.example.hotel.po.Hotel" >
+    <update id="updateManagerOfHotel" parameterType="com.example.hotel.po.Hotel" >
     update hotel set manager_id=#{managerId} where id=#{id}
     </update>
     <delete id="deleteHotel" parameterType="int">
@@ -47,14 +47,14 @@
         <result column="usertype" property="userType"></result>
     </resultMap>
     <resultMap id="Hotel" type="com.example.hotel.po.Hotel">
-    <id column="id" property="id"></id>
-    <result column="address" property="address"></result>
-    <result column="bizRegion" property="bizRegion"></result>
-    <result column="hotelDescription" property="description"></result>
-    <result column="hotelStar" property="hotelStar"></result>
-    <result column="hotelName" property="hotelName"></result>
-    <result column="phoneNum" property="phoneNum"></result>
-    <result column="rate" property="rate"></result>
-    <result column="manager_id" property="managerId"></result>
+        <id column="id" property="id"></id>
+        <result column="address" property="address"></result>
+        <result column="bizRegion" property="bizRegion"></result>
+        <result column="hotelDescription" property="description"></result>
+        <result column="hotelStar" property="hotelStar"></result>
+        <result column="hotelName" property="hotelName"></result>
+        <result column="phoneNum" property="phoneNum"></result>
+        <result column="rate" property="rate"></result>
+        <result column="manager_id" property="managerId"></result>
     </resultMap>
 </mapper>

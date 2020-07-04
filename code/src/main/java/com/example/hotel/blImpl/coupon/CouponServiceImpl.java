@@ -7,6 +7,7 @@ import com.example.hotel.po.Coupon;
 import com.example.hotel.vo.CouponVO;
 import com.example.hotel.vo.OrderVO;
 import com.example.hotel.vo.ResponseVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @Author: Zzn
+ * @Date: 2020-06-14
+ */
 @Service
 public class CouponServiceImpl implements CouponService {
 
@@ -40,10 +45,11 @@ public class CouponServiceImpl implements CouponService {
 
   @Override
   public List<Coupon> getMatchOrderCoupon(OrderVO orderVO) {
-
+    List<Coupon> availAbleCoupons = new ArrayList<>();
+    //首先获取对应酒店的优惠列表以及网站的优惠列表
     List<Coupon> hotelCoupons = getHotelAllCoupon(orderVO.getHotelId());
     List<Coupon> websiteCoupons = getWebsiteAllCoupon();
-    List<Coupon> availAbleCoupons = new ArrayList<>();
+    //判断是否满足某一条会员优惠
     for (int i = 0; i < websiteCoupons.size(); i++) {
       if (websiteCoupons.get(i).getCouponType() == 1) {
         //生日特惠
@@ -61,12 +67,11 @@ public class CouponServiceImpl implements CouponService {
         availAbleCoupons.add(websiteCoupons.get(i));
       }
     }
-
+    //如果是企业会员，则无法使用其他优惠券，直接返回企业会员部分匹配的优惠列表
     if (accountService.getVipInfo(orderVO.getUserId()).getVipType()==2){
       return availAbleCoupons;
     }
-
-
+    //判断是否满足某一条酒店优惠
     for (int i = 0; i < hotelCoupons.size(); i++) {
       if (hotelCoupons.get(i).getCouponType() == 2) {
         //多间特惠
@@ -94,43 +99,45 @@ public class CouponServiceImpl implements CouponService {
         availAbleCoupons.add(hotelCoupons.get(i));
       }
     }
-
+    //返回所有符合条件的优惠列表
     return availAbleCoupons;
   }
 
   @Override
   public List<Coupon> getHotelAllCoupon(Integer hotelId) {
+    //返回酒店对应的优惠政策
     return couponMapper.selectByHotelId(hotelId);
   }
 
   @Override
   public List<Coupon> getWebsiteAllCoupon() {
+    //获取网站的优惠政策
     return couponMapper.selectWebsiteCoupon();
   }
 
   @Override
   public ResponseVO addCoupon(CouponVO couponVO) {
+    //coupon,VO->PO
     Coupon coupon = new Coupon();
-    coupon.setDescription(couponVO.getDescription());
-    coupon.setHotelId(couponVO.getHotelId());
-    coupon.setCouponType(couponVO.getCouponType());
-    coupon.setCouponName(couponVO.getCouponName());
-    coupon.setRoomNum(couponVO.getRoomNum());
-    coupon.setTargetMoney(couponVO.getTargetMoney());
-    coupon.setDiscount(couponVO.getDiscount());
+    BeanUtils.copyProperties(couponVO,coupon);
     coupon.setStatus(1);
-    coupon.setStartTime(couponVO.getStartTime());
-    coupon.setEndTime(couponVO.getEndTime());
-    coupon.setDiscountMoney(couponVO.getDiscountMoney());
-    int result = couponMapper.insertCoupon(coupon);
-    if(result==0)return ResponseVO.buildFailure(ADD_Fall);
+    //添加优惠，如果成功便返回true，否则返回优惠添加失败
+    try{
+      couponMapper.insertCoupon(coupon);
+    } catch(Exception e){
+      e.printStackTrace();
+      return ResponseVO.buildFailure(ADD_Fall);
+    }
     return ResponseVO.buildSuccess(true);
   }
 
   @Override
   public ResponseVO deleteCoupon(int couponId) {
-    int result = couponMapper.deleteCoupon(couponId);
-    if(result==0) {
+    //删除优惠，如果成功便返回true，否则返回优惠删除失败
+    try{
+      couponMapper.deleteCoupon(couponId);
+    } catch(Exception e){
+      e.printStackTrace();
       return ResponseVO.buildFailure(DELETE_Fall);
     }
     return ResponseVO.buildSuccess(true);

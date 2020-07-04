@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+/**
+ * @Author: Zzn
+ * @Date: 2020-05-31
+ */
 @Service
 public class TimeCouponStrategyImpl implements CouponMatchStrategy {
 
-
-    /**
-     * 判断某个订单是否满足某种限时优惠策略(跟下单时间做比较！)
-     * @param orderVO
-     * @return
-     */
     @Override
     public boolean isMatch(OrderVO orderVO, Coupon coupon) {
+        //判断某个订单是否满足某种限时优惠策略(跟下单时间做比较！)
         LocalDate createDate = LocalDate.parse(orderVO.getCreateDate());
         LocalDate festivalStartDate = LocalDate.parse(coupon.getStartTime());
         LocalDate festivalEndDate = LocalDate.parse(coupon.getEndTime());

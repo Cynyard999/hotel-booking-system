@@ -15,7 +15,7 @@ public enum BizRegion {
         this.value = value;
     }
 
-    public static BizRegion format(String value){
+    /*public static BizRegion format(String value){
         switch (value) {
             case "新街口":
                 return XinJieKou;
@@ -34,7 +34,7 @@ public enum BizRegion {
             default:
                 return null;
         }
-    }
+    }*/
 
     @Override
     public String toString() {

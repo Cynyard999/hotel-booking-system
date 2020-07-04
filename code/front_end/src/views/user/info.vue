@@ -114,15 +114,19 @@
                 </a-table>
             </a-tab-pane>
             <a-tab-pane tab="我的会员" key = "3" v-if="userInfo.userType=='Client'">
-                <div v-if="creditQualified==false" style="font-size: large">
-                    <p>信用值达到200后才能注册或者查看会员信息哦!</p>
+                <div v-if="creditQualified==false&&isVip==false">
+                    <a-alert message="信用值达到200后才能注册会员" banner />
                 </div>
-                <a-form :form="vipForm" style="margin-top: 30px;width: 30%" v-if="creditQualified">
-                    <a-form-item label="会员类型" v-if="creditQualified">
+                <div v-if="creditQualified==false&&isVip==true" style="font-size: large">
+                    <a-alert message="会员功能暂不可用，请将信用值恢复到200以上" banner />
+                </div>
+                <a-form :form="vipForm" style="margin-top: 30px;width: 30%">
+                    <a-form-item label="会员类型">
                         <a-select
                             v-decorator="['vipType',{ rules: [{ required: true, message: '请选择会员类别' }] }]"
                             @change="changeType"
                             v-if="isVip == false"
+                            :disabled="creditQualified==false"
                         >
                             <a-select-option value="1">个人会员</a-select-option>
                             <a-select-option value="2">企业会员</a-select-option>

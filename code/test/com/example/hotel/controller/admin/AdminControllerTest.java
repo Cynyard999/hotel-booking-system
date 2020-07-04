@@ -2,16 +2,12 @@ package com.example.hotel.controller.admin;
 
 import com.example.hotel.bl.hotel.HotelService;
 import com.example.hotel.enums.UserType;
-import com.example.hotel.po.Hotel;
-import com.example.hotel.po.User;
 import com.example.hotel.vo.HotelVO;
 import com.example.hotel.vo.UserVO;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+/**
+ * @Author: Czh
+ * @Date: 2020-06-29
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AdminControllerTest {
@@ -118,7 +117,6 @@ public class AdminControllerTest {
     @Transactional
     @Rollback
     public void getUserInfo() {
-        Assert.assertEquals("查询失败",adminController.getUserInfo(15).getMessage());
         UserVO user = (UserVO)adminController.getUserInfo(9).getContent();
         Assert.assertEquals("测试用户1号",user.getUserName());
     }

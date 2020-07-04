@@ -26,7 +26,7 @@ export function adminAddHotelAPI(data){
 }
 export function updateHotelAPI(data){
     return axios({
-        url: `${api.adminPre}/updateHotel`,
+        url: `${api.adminPre}/updateManagerOfHotel`,
         method: 'POST',
         data
     })
@@ -57,7 +57,6 @@ export function deleteUserAPI(userId) {
     })
 }
 export function saveFileAPI(formData) {
-    console.log(formData)
     return axios({
         url: `${api.adminPre}/saveFile`,
         method: 'POST',

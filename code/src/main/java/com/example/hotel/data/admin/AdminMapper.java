@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Author: chenyizong
- * @Date: 2020-03-04
+ * @Author: lxz
+ * @Date: 2020-06-22
  */
 @Mapper
 @Repository
@@ -24,7 +24,7 @@ public interface AdminMapper {
 
     int addHotel(Hotel hotel);
 
-    int updateHotel(Hotel hotel);
+    int updateManagerOfHotel(Hotel hotel);
 
     Hotel getHotelInfo(int hotelId);
 

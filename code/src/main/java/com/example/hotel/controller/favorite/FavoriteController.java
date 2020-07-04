@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * @author cynyard
+ * @author Qxy
+ * @Date: 2020-05-26
  */
-
 @RestController
 @RequestMapping("/api/favorite")
 public class FavoriteController {
-
 
   @Autowired
   private FavoriteService favoriteService;
@@ -42,7 +41,6 @@ public class FavoriteController {
   @GetMapping("/{id}/{hotelId}/isFavored")
   public ResponseVO isFavored(@PathVariable Integer id,@PathVariable Integer hotelId) {
     Integer res = favoriteService.isFavored(id, hotelId);
-//    System.out.println(id+" "+hotelId+" is "+res);
     return ResponseVO.buildSuccess(res);
   }
 }

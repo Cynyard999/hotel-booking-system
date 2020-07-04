@@ -23,7 +23,7 @@ public class RoomMapperTest {
     @Transactional
     @Rollback
     public void updateRoomInfo(){
-        roomMapper.updateRoomInfo(1,"Family",10);
+        roomMapper.updateRoomInfo(1,1,10);
         Assert.assertTrue(true);
     }
     @Test

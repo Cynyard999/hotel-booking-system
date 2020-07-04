@@ -7,7 +7,10 @@ import com.example.hotel.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * @Author: Qxy
+ * @Date: 2020-05-25
+ */
 @RestController()
 @RequestMapping("/api/user")
 public class AccountController {
@@ -18,12 +21,11 @@ public class AccountController {
 
   @PostMapping("/login")
   public ResponseVO login(@RequestBody UserForm userForm) {
-    User user = accountService.login(userForm);
-    if (user == null) {
+    UserVO userVO = accountService.login(userForm);
+    if (userVO == null) {
       return ResponseVO.buildFailure(ACCOUNT_INFO_ERROR);
     }
-    return ResponseVO.buildSuccess(user);
-
+    return ResponseVO.buildSuccess(userVO);
   }
 
   @PostMapping("/register")
@@ -31,17 +33,15 @@ public class AccountController {
     return accountService.registerAccount(userVO);
   }
 
-
   @GetMapping("/{id}/getUserInfo")
   public ResponseVO getUserInfo(@PathVariable int id) {
-    User user = accountService.getUserInfo(id);
-    if (user == null) {
+    UserVO userVO = accountService.getUserInfo(id);
+    if (userVO == null) {
       return ResponseVO.buildFailure(ACCOUNT_INFO_ERROR);
     }
-    return ResponseVO.buildSuccess(user);
+    return ResponseVO.buildSuccess(userVO);
   }
 
-  //`${api.userPre}/${id}/getVipInfo`
   @GetMapping("/{id}/getVipInfo")
   public ResponseVO getVipInfo(@PathVariable int id) {
     Vip vip = accountService.getVipInfo(id);
@@ -70,7 +70,6 @@ public class AccountController {
 
   @PostMapping("/{email}/{credit}/chargeCredit")
   public ResponseVO chargeCredit(@PathVariable String email, @PathVariable double credit) {
-    System.out.print(email);
     return accountService.updateUserCreditByEmail(email, credit);
   }
 

@@ -22,6 +22,7 @@ const getters = {
   makeEvaluationVisible:state=>state.user.makeEvaluationVisible,
   evaluatedHotelName:state=>state.user.evaluatedHotelName,
   evaluations:state=>state.hotel.evaluations,
+  sortMethod:state=>state.hotel.sortMethod,
   //admin
   managerList: state => state.admin.managerList,
   clientList: state => state.admin.clientList,

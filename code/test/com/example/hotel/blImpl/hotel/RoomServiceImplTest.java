@@ -61,7 +61,7 @@ public class RoomServiceImplTest {
 
     @Test
     public void updateRoomInfo() {
-        roomService.updateRoomInfo(1,"Family",10);
+        roomService.updateRoomInfo(1,1,10);
         Assert.assertTrue(true);
     }
 

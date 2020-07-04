@@ -1,5 +1,6 @@
 package com.example.hotel.blImpl.user;
 
+import com.example.hotel.bl.creditRecord.CreditRecordService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.creditRecord.CreditRecordMapper;
 import com.example.hotel.data.user.AccountMapper;
@@ -16,7 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-
+/**
+ * @Author: Qxy
+ * @Date: 2020-05-25
+ */
 @Service
 public class AccountServiceImpl implements AccountService {
     private final static String UPDATE_ERROR = "修改失败";
@@ -28,40 +32,46 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountMapper accountMapper;
     @Autowired
-    private CreditRecordMapper creditRecordMapper;
+    private CreditRecordService creditRecordService;
 
     @Override
     public ResponseVO registerAccount(UserVO userVO) {
+        //注册用户，检查邮箱和手机号是否已注册
         User user = new User();
         BeanUtils.copyProperties(userVO,user);
+        user.setUserType(UserType.Client);
+        user.setUserName(userVO.getUserName());
         if(checkEmail(user.getEmail())){return ResponseVO.buildSuccess(EMAIL_EXIST);}
         if(checkPhone(user.getPhoneNumber())){return ResponseVO.buildSuccess(PHONE_EXIST);}
         try {
             accountMapper.createNewAccount(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseVO.buildFailure(ACCOUNT_EXIST);
         }
-        return ResponseVO.buildSuccess(123);
+        return ResponseVO.buildSuccess(true);
     }
 
     @Override
-    public User login(UserForm userForm) {
+    public UserVO login(UserForm userForm) {
         User user = accountMapper.getAccountByName(userForm.getEmail());
-
-        if (null == user || !user.getPassword().equals(userForm.getPassword())) {
+        if (user == null || !user.getPassword().equals(userForm.getPassword())) {
             return null;
         }
-        return user;
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user,userVO);
+        return userVO;
     }
 
     @Override
-    public User getUserInfo(int id) {
+    public UserVO getUserInfo(int id) {
         User user = accountMapper.getAccountById(id);
         if (user == null) {
             return null;
         }
-        return user;
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user,userVO);
+        return userVO;
     }
 
 
@@ -81,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
         try {
             accountMapper.updateAccount(id, password, username, phonenumber);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
         return ResponseVO.buildSuccess(true);
@@ -92,7 +102,7 @@ public class AccountServiceImpl implements AccountService {
         try{
             accountMapper.updateCredit(id, credit);
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseVO.buildFailure(CHARGE_ERROR);
         }
         return ResponseVO.buildSuccess(true);
@@ -100,24 +110,26 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseVO updateUserCreditByEmail(String email, double credit){
+        //通过邮箱充值信用值，并记录信用值变更
         User user = accountMapper.getAccountByName(email);
         if(!user.getUserType().equals(UserType.Client)){
             return ResponseVO.buildFailure(CHARGE_ERROR);
         }
         accountMapper.updateCredit(user.getId(), credit);
-        CreditRecord creditRecord = new CreditRecord();
+        CreditRecordVO creditRecord = new CreditRecordVO();
         creditRecord.setUserId(user.getId());
         creditRecord.setChangeAction("信用值充值");
         creditRecord.setChangeValue(credit);
         creditRecord.setFinalValue(accountMapper.getAccountByName(email).getCredit());
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         creditRecord.setChangeTime(sf.format(new Date(System.currentTimeMillis())));
-        creditRecordMapper.addCreditRecord(creditRecord);
+        creditRecordService.addCreditRecord(creditRecord);
         return ResponseVO.buildSuccess(true);
     }
 
     @Override
     public ResponseVO registerPersonalVIP(VipPersonVO vipPersonVO) {
+        //注册个人会员
         try {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
@@ -137,6 +149,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseVO registerCompanyVIP(VipCompanyVO vipCompanyVO) {
+        //注册企业会员
         try {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());

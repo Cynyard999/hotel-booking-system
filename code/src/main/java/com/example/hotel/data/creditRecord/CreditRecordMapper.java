@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @Author: Czh
+ * @Date: 2020-05-27
+ */
 @Mapper
 @Repository
 public interface CreditRecordMapper {

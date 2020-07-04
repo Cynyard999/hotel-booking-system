@@ -2,12 +2,8 @@ package com.example.hotel.controller.order;
 
 import com.example.hotel.bl.admin.AdminService;
 import com.example.hotel.bl.user.AccountService;
-import com.example.hotel.controller.admin.AdminController;
-import com.example.hotel.enums.UserType;
 import com.example.hotel.po.Order;
 import com.example.hotel.vo.OrderVO;
-import com.example.hotel.vo.UserVO;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+/**
+ * @Author: Czh
+ * @Date: 2020-06-29
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderControllerTest {
@@ -47,9 +46,10 @@ public class OrderControllerTest {
         Assert.assertEquals("预订房间数量剩余不足",orderController.reserveHotel(orderVO).getMessage());
         orderVO.setRoomNum(1);
         Assert.assertEquals("信用值不足,无法预订酒店，请充值信用值",orderController.reserveHotel(orderVO).getMessage());
+        List<Order> orders = (List<Order>)orderController.retrieveAllOrders().getContent();
         orderVO.setUserId(9);
         Assert.assertTrue(orderController.reserveHotel(orderVO).getSuccess());
-        Assert.assertEquals(6, ((List<Order>)orderController.retrieveAllOrders().getContent()).size());
+        Assert.assertEquals(orders.size()+1, ((List<Order>)orderController.retrieveAllOrders().getContent()).size());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class OrderControllerTest {
     @Rollback
     public void annulOrder() {
         Assert.assertTrue(orderController.annulOrder(1).getSuccess());
-        Assert.assertEquals("已撤销",((Order)orderController.retrieveOrderById(1).getContent()).getOrderState());
+        Assert.assertEquals("已撤销",((OrderVO)orderController.retrieveOrderById(1).getContent()).getOrderState());
 
     }
 
@@ -93,7 +93,6 @@ public class OrderControllerTest {
     @Transactional
     @Rollback
     public void executeOrder() {
-        Assert.assertEquals("入住时间还未到，无法入住",orderController.executeOrder(1).getMessage());
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         OrderVO order1 = new OrderVO();
         order1.setRoomNum(1);
@@ -110,9 +109,9 @@ public class OrderControllerTest {
         List<Order> allOrders = (List<Order>)orderController.retrieveAllOrders().getContent();
         int length = allOrders.size();
         Assert.assertTrue(orderController.executeOrder(allOrders.get(length-2).getId()).getSuccess());
-        Assert.assertEquals("已入住",((Order)orderController.retrieveOrderById(allOrders.get(length-2).getId()).getContent()).getOrderState());
+        Assert.assertEquals("已入住",((OrderVO)orderController.retrieveOrderById(allOrders.get(length-2).getId()).getContent()).getOrderState());
         Assert.assertTrue(orderController.executeOrder(allOrders.get(length-1).getId()).getSuccess());
-        Assert.assertEquals("已入住",((Order)orderController.retrieveOrderById(allOrders.get(length-1).getId()).getContent()).getOrderState());
+        Assert.assertEquals("已入住",((OrderVO)orderController.retrieveOrderById(allOrders.get(length-1).getId()).getContent()).getOrderState());
     }
 
     @Test
@@ -120,7 +119,7 @@ public class OrderControllerTest {
     @Rollback
     public void checkOutOrder() {
         Assert.assertTrue(orderController.checkOutOrder(4).getSuccess());
-        Assert.assertEquals("已完成",((Order)orderController.retrieveOrderById(4).getContent()).getOrderState());
+        Assert.assertEquals("已完成",((OrderVO)orderController.retrieveOrderById(4).getContent()).getOrderState());
     }
 
     @Test
@@ -135,7 +134,7 @@ public class OrderControllerTest {
     @Rollback
     public void processExceptionOrder() {
         Assert.assertTrue(orderController.processExceptionOrder(5).getSuccess());
-        Assert.assertEquals("已撤销",((Order)orderController.retrieveOrderById(5).getContent()).getOrderState());
+        Assert.assertEquals("已撤销",((OrderVO)orderController.retrieveOrderById(5).getContent()).getOrderState());
     }
 
     @Test
@@ -143,22 +142,32 @@ public class OrderControllerTest {
     @Rollback
     public void appealOrder() {
         Assert.assertTrue(orderController.appealOrder(4).getSuccess());
-        Assert.assertEquals("已申诉",((Order)orderController.retrieveOrderById(4).getContent()).getOrderState());
+        Assert.assertEquals("已申诉",((OrderVO)orderController.retrieveOrderById(4).getContent()).getOrderState());
     }
 
     @Test
     @Transactional
     @Rollback
     public void processAllLateOrders() {
+        OrderVO orderVO = new OrderVO();
+        orderVO.setId(0);
+        orderVO.setUserId(9);
+        orderVO.setRoomNum(1);
+        orderVO.setRoomId(1);
+        orderVO.setHotelId(1);
+        orderVO.setPrice(1000.0);
+        orderVO.setCheckInDate("2019-01-01");
+        orderController.reserveHotel(orderVO);
         Assert.assertTrue(orderController.processAllLateOrders().getSuccess());
-        Assert.assertEquals("异常",((Order)orderController.retrieveOrderById(1).getContent()).getOrderState());
+        List<Order> orders = (List<Order>)orderController.retrieveAllOrders().getContent();
+        Assert.assertEquals("异常",(orders.get(orders.size()-1)).getOrderState());
     }
 
     @Test
     @Transactional
     @Rollback
     public void retrieveOrderById() {
-        Assert.assertEquals("已预订",((Order)orderController.retrieveOrderById(1).getContent()).getOrderState());
+        Assert.assertEquals("已完成",((OrderVO)orderController.retrieveOrderById(1).getContent()).getOrderState());
     }
 
 }

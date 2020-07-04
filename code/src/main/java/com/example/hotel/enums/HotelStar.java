@@ -12,7 +12,7 @@ public enum HotelStar {
         this.value = value;
     }
 
-    public static HotelStar format(String value){
+    /*public static HotelStar format(String value){
         switch (value) {
             case "五星级":
                 return Five;
@@ -23,7 +23,7 @@ public enum HotelStar {
             default:
                 return null;
         }
-    }
+    }*/
 
     @Override
     public String toString() {

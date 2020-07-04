@@ -1,5 +1,6 @@
 package com.example.hotel.blImpl.user;
 
+import com.example.hotel.bl.creditRecord.CreditRecordService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.creditRecord.CreditRecordMapper;
 import com.example.hotel.data.user.AccountMapper;
@@ -43,6 +44,8 @@ public class AccountServiceImplTest extends TestCase {
   private AccountMapper accountMapper;
   @Mock
   private CreditRecordMapper creditRecordMapper;
+  @Mock
+  private CreditRecordService creditRecordService;
 
   @Before
   public void init() {
@@ -64,7 +67,6 @@ public class AccountServiceImplTest extends TestCase {
     ResponseVO responseVO1 = ResponseVO.buildSuccess(EMAIL_EXIST);
     ResponseVO responseVO2 = ResponseVO.buildSuccess(PHONE_EXIST);
     ResponseVO responseVO3 = ResponseVO.buildFailure(ACCOUNT_EXIST);
-    ResponseVO responseVO = ResponseVO.buildSuccess(123);
 
     //测试email已存在
     assertEquals(responseVO1.getContent(), accountService.registerAccount(userVO1).getContent());
@@ -87,7 +89,7 @@ public class AccountServiceImplTest extends TestCase {
     userVO4.setPhoneNumber("444");
     userVO4.setId(4);
     userVO4.setEmail("444@qq.com");
-    assertEquals(responseVO.getContent(), accountService.registerAccount(userVO4).getContent());
+    assertTrue(accountService.registerAccount(userVO4).getSuccess());
 
   }
 
@@ -169,7 +171,7 @@ public class AccountServiceImplTest extends TestCase {
     when(accountMapper.getAccountByName("111@qq.com")).thenReturn(user);
     doNothing().when(creditRecordMapper).addCreditRecord(any());
     assertEquals(res.getContent(),
-        accountService.updateUserCreditByEmail("111@qq.com", 100).getContent());
+    accountService.updateUserCreditByEmail("111@qq.com", 100).getContent());
     res = ResponseVO.buildFailure(CHARGE_ERROR);
     user.setEmail("222@qq.com");
     user.setUserType(UserType.HotelManager);

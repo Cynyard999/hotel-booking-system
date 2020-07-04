@@ -3,7 +3,6 @@ package com.example.hotel.blImpl.admin;
 import com.example.hotel.bl.admin.AdminService;
 import com.example.hotel.bl.user.AccountService;
 import com.example.hotel.data.admin.AdminMapper;
-import com.example.hotel.data.user.AccountMapper;
 import com.example.hotel.enums.UserType;
 import com.example.hotel.po.Hotel;
 import com.example.hotel.po.User;
@@ -77,7 +76,7 @@ public class AdminServiceImplTest {
 
     @Test
     public void updateHotel() {
-        Assert.assertTrue(adminService.updateHotel(new HotelVO()).getSuccess());
+        Assert.assertTrue(adminService.updateManagerOfHotel(new HotelVO()).getSuccess());
     }
 
     @Test
@@ -86,7 +85,7 @@ public class AdminServiceImplTest {
         user.setId(5);
         user.setEmail("123@qq.com");
         Mockito.when(adminMapper.getUserInfo(0)).thenReturn(user);
-        UserVO result = (UserVO) adminService.getUserInfo(0).getContent();
+        UserVO result = adminService.getUserInfo(0);
         Assert.assertEquals("123@qq.com",result.getEmail());
     }
 

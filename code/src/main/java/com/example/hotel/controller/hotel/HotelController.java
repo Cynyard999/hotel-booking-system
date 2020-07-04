@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * @Author: Zzn
+ * @Date: 2020-06-13
+ */
 @RestController
 @RequestMapping("/api/hotel")
 public class HotelController {
@@ -18,8 +22,6 @@ public class HotelController {
     private HotelService hotelService;
     @Autowired
     private RoomService roomService;
-
-
 
     @GetMapping("/all")
     public ResponseVO retrieveAllHotels(){

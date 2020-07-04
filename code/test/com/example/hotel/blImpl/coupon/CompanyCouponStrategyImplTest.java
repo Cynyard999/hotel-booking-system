@@ -5,6 +5,7 @@ import com.example.hotel.po.Coupon;
 import com.example.hotel.po.User;
 import com.example.hotel.po.Vip;
 import com.example.hotel.vo.OrderVO;
+import com.example.hotel.vo.UserVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +31,11 @@ public class CompanyCouponStrategyImplTest {
     public void isMatch(){
         Coupon coupon = new Coupon();
         coupon.setRoomNum(3);
-        User user = new User();
-        user.setCredit(0);
+        UserVO userVO = new UserVO();
+        userVO.setCredit(0);
         Vip vip = new Vip();
         vip.setVipType(0);
-        when(accountService.getUserInfo(1)).thenReturn(user);
+        when(accountService.getUserInfo(1)).thenReturn(userVO);
         when(accountService.getVipInfo(1)).thenReturn(vip);
         OrderVO orderVO = new OrderVO();
         orderVO.setUserId(1);
@@ -46,7 +47,7 @@ public class CompanyCouponStrategyImplTest {
         Assert.assertFalse(companyCouponStrategy.isMatch(orderVO,coupon));
         //验证信用值满200但不是会员
         vip.setVipType(0);
-        user.setCredit(300);
+        userVO.setCredit(300);
         Assert.assertFalse(companyCouponStrategy.isMatch(orderVO,coupon));
         //验证房间数不够不能使用优惠
         vip.setVipType(2);

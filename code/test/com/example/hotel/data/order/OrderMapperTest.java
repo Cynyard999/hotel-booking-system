@@ -27,8 +27,9 @@ public class OrderMapperTest {
         Order order = new Order();
         order.setOrderState("已预订");
         order.setHotelId(1);
+        int temp = orderMapper.getAllOrders().size();
         orderMapper.addOrder(order);
-        Assert.assertEquals(6,orderMapper.getAllOrders().size());
+        Assert.assertEquals(temp+1,orderMapper.getAllOrders().size());
     }
 
     @Test

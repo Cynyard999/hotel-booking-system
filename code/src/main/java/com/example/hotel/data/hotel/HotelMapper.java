@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @Author: Zzn
+ * @Date: 2020-06-13
+ */
 @Mapper
 @Repository
 public interface HotelMapper {

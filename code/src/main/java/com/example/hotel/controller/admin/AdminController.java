@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Author: chenyizong
- * @Date: 2020-03-04
+ * @Author: lxz
+ * @Date: 2020-06-22
  */
 @RestController()
 @RequestMapping("/api/admin")
@@ -22,28 +22,44 @@ public class AdminController {
     public ResponseVO addUser(@RequestBody UserVO userVO){
         return adminService.addUser(userVO);
     }
+
     @GetMapping("/{type}/getUserList")
-    public ResponseVO getUserList(@PathVariable String type){ return ResponseVO.buildSuccess(adminService.getUserList(type)); }
+    public ResponseVO getUserList(@PathVariable String type){
+        return ResponseVO.buildSuccess(adminService.getUserList(type));
+    }
+
     @PostMapping("/updateUserInfo")
     public ResponseVO updateUserInfo(@RequestBody UserVO userVO){
         return adminService.updateUserInfo(userVO);
     }
+
     @PostMapping("/addHotel")
-    public ResponseVO addHotel(@RequestBody HotelVO hotelVO){ return adminService.addHotel(hotelVO); }
-    @PostMapping("/updateHotel")
-    public ResponseVO updateHotel(@RequestBody HotelVO hotelVO){
-        return adminService.updateHotel(hotelVO);
+    public ResponseVO addHotel(@RequestBody HotelVO hotelVO){
+        return adminService.addHotel(hotelVO);
     }
+
+    @PostMapping("/updateManagerOfHotel")
+    public ResponseVO updateHotel(@RequestBody HotelVO hotelVO){
+        return adminService.updateManagerOfHotel(hotelVO);
+    }
+
     @GetMapping("/deleteHotel/{hotelId}")
-    public ResponseVO deleteHotel(@PathVariable int hotelId){return adminService.deleteHotel(hotelId);}
+    public ResponseVO deleteHotel(@PathVariable int hotelId){
+        return adminService.deleteHotel(hotelId);
+    }
+
     @GetMapping("/deleteUser/{userId}")
-    public ResponseVO deleteUser(@PathVariable int userId){return adminService.deleteUser(userId);}
+    public ResponseVO deleteUser(@PathVariable int userId){
+        return adminService.deleteUser(userId);
+    }
+
     @GetMapping("/{id}/getUserInfo")
-    public ResponseVO getUserInfo(@PathVariable int id){ return adminService.getUserInfo(id); }
+    public ResponseVO getUserInfo(@PathVariable int id){
+        return ResponseVO.buildSuccess(adminService.getUserInfo(id));
+    }
+
     @PostMapping("/saveFile")
     public ResponseVO uploadFile(@RequestParam("hotelId") String hotelId,@RequestParam("file") MultipartFile file) {
         return adminService.uploadFile(hotelId,file);
     }
-
-
 }

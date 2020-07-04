@@ -82,7 +82,7 @@ public class HotelServiceImplTest {
 
     @Test
     public void updateRoomInfo() {
-        hotelService.updateRoomInfo(1,"Family",10);
+        hotelService.updateRoomInfo(1,1,10);
         Assert.assertTrue(true);
     }
 

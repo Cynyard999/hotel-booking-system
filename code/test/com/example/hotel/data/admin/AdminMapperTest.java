@@ -68,7 +68,7 @@ public class AdminMapperTest {
         Hotel hotel = new Hotel();
         hotel.setId(2);
         hotel.setManagerId(0);
-        adminMapper.updateHotel(hotel);
+        adminMapper.updateManagerOfHotel(hotel);
     }
 
     @Test

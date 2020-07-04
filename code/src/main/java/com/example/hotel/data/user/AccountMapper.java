@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-
+/**
+ * @Author: Qxy
+ * @Date: 2020-05-25
+ */
 @Mapper
 @Repository
 public interface AccountMapper {
@@ -19,7 +22,7 @@ public interface AccountMapper {
   int createNewAccount(User user);
 
   /**
-   * 根据用户名查找账号
+   * 根据邮箱查找账号
    *
    * @param email
    * @return
