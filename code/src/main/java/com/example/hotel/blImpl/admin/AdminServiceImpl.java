@@ -30,9 +30,7 @@ public class AdminServiceImpl implements AdminService {
     private final static String UPDATE_FALSE = "更新失败";
     private final static String HOTEL_ADD_FAIL = "酒店添加失败";
     private final static String UPLOAD_FAIL = "图片上传失败";
-    private final static String accessKeyId = "LTAI4G4F2DHQ3qZGEK9xVn1D";
-    private final static String accessKeySecret = "jFaOMD78Lxx0CMdXBUgQx5p5PR8tFZ";
-    private final static String bucketName  = "hotel-booking-system";
+
     private final static String endpoint = "oss-cn-beijing.aliyuncs.com";
     private final static String DELETE_HOTEL_FAIL = "删除酒店失败";
     private final static String DELETE_USER_FAIL = "删除用户失败";
