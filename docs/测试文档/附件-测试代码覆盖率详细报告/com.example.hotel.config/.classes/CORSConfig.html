@@ -1,0 +1,138 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CORSConfig</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.config</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CORSConfig (com.example.hotel.config)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CORSConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/ 14)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CORSConfig$$EnhancerBySpringCGLIB$$3c1995f8</td>
+  </tr>
+  <tr>
+    <td class="name">CORSConfig$$EnhancerBySpringCGLIB$$3c1995f8$$FastClassBySpringCGLIB$$ab633ecf</td>
+  </tr>
+  <tr>
+    <td class="name">CORSConfig$$FastClassBySpringCGLIB$$e3b174d0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/ 14)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.config;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.springframework.context.annotation.Bean;
+<i>4</i>&nbsp;import org.springframework.context.annotation.Configuration;
+<i>5</i>&nbsp;import org.springframework.web.cors.CorsConfiguration;
+<i>6</i>&nbsp;import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+<i>7</i>&nbsp;import org.springframework.web.filter.CorsFilter;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;@Configuration
+<b class="fc"><i>10</i>&nbsp;public class CORSConfig {</b>
+<b class="fc"><i>11</i>&nbsp;    private static String[] originsVal = new String[]{</b>
+<i>12</i>&nbsp;            &quot;localhost:8000&quot;,
+<i>13</i>&nbsp;            &quot;127.0.0.1:8000&quot;,
+<i>14</i>&nbsp;            &quot;127.0.0.1&quot;,
+<i>15</i>&nbsp;            &quot;localhost&quot;,
+<i>16</i>&nbsp;            &quot;172.19.144.143&quot;,
+<i>17</i>&nbsp;            &quot;172.19.144.143:8000&quot;
+<i>18</i>&nbsp;    };
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Bean
+<i>21</i>&nbsp;    public CorsFilter corsFilter() {
+<b class="fc"><i>22</i>&nbsp;        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</b>
+<b class="fc"><i>23</i>&nbsp;        CorsConfiguration corsConfiguration = new CorsConfiguration();</b>
+<b class="fc"><i>24</i>&nbsp;        addAllowedOrigins(corsConfiguration); // 1</b>
+<i>25</i>&nbsp;        //corsConfiguration.addAllowedOrigin(&quot;*&quot;);
+<b class="fc"><i>26</i>&nbsp;        corsConfiguration.addAllowedHeader(&quot;*&quot;); // 2</b>
+<b class="fc"><i>27</i>&nbsp;        corsConfiguration.addAllowedMethod(&quot;*&quot;); // 3</b>
+<b class="fc"><i>28</i>&nbsp;        corsConfiguration.setAllowCredentials(true); // øÁ”Úsessionπ≤œÌ</b>
+<b class="fc"><i>29</i>&nbsp;        source.registerCorsConfiguration(&quot;/**&quot;, corsConfiguration); // 4</b>
+<b class="fc"><i>30</i>&nbsp;        return new CorsFilter(source);</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    private void addAllowedOrigins(CorsConfiguration corsConfiguration) {
+<b class="fc"><i>34</i>&nbsp;        for (String origin : originsVal) {</b>
+<b class="fc"><i>35</i>&nbsp;            corsConfiguration.addAllowedOrigin(&quot;http://&quot; + origin);</b>
+<b class="fc"><i>36</i>&nbsp;            corsConfiguration.addAllowedOrigin(&quot;https://&quot; + origin);</b>
+<i>37</i>&nbsp;        }
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

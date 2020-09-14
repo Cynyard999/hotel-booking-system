@@ -1,0 +1,85 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FavoriteService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.bl.favorite</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FavoriteService (com.example.hotel.bl.favorite)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">FavoriteService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.bl.favorite;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Hotel;
+<i>4</i>&nbsp;import com.example.hotel.vo.HotelVO;
+<i>5</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public interface FavoriteService {
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;  /**
+<i>11</i>&nbsp;   * @param userId
+<i>12</i>&nbsp;   * @param hotelId
+<i>13</i>&nbsp;   * @return
+<i>14</i>&nbsp;   */
+<i>15</i>&nbsp;  ResponseVO favorHotel(Integer userId, Integer hotelId);
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;  /**
+<i>19</i>&nbsp;   * @param userId
+<i>20</i>&nbsp;   * @param hotelId
+<i>21</i>&nbsp;   * @return
+<i>22</i>&nbsp;   */
+<i>23</i>&nbsp;  ResponseVO disfavorHotel(Integer userId, Integer hotelId);
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;  /**
+<i>26</i>&nbsp;   * @param userId
+<i>27</i>&nbsp;   * @return
+<i>28</i>&nbsp;   */
+<i>29</i>&nbsp;  List&lt;HotelVO&gt; retrieveFavoriteList(Integer userId);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;  /**
+<i>32</i>&nbsp;   *
+<i>33</i>&nbsp;   * @param userId
+<i>34</i>&nbsp;   * @param hotelId
+<i>35</i>&nbsp;   * @return
+<i>36</i>&nbsp;   */
+<i>37</i>&nbsp;  int isFavored(Integer userId, Integer hotelId);
+<i>38</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

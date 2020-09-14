@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OrderService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.bl.order</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OrderService (com.example.hotel.bl.order)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">OrderService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.bl.order;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.Order;
+<i>4</i>&nbsp;import com.example.hotel.vo.OrderVO;
+<i>5</i>&nbsp;import com.example.hotel.vo.ResponseVO;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * @Author: chenyizong
+<i>11</i>&nbsp; * @Date: 2020-03-04
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface OrderService {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * 预订酒店
+<i>17</i>&nbsp;     * @param orderVO
+<i>18</i>&nbsp;     * @return
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    ResponseVO addOrder(OrderVO orderVO);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * 获得所有订单信息
+<i>24</i>&nbsp;     * @return
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    List&lt;Order&gt; getAllOrders();
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * 获得指定用户的所有订单信息
+<i>30</i>&nbsp;     * @param userid
+<i>31</i>&nbsp;     * @return
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    List&lt;Order&gt; getUserOrders(int userid);
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * 查看酒店的所有订单
+<i>37</i>&nbsp;     * @param hotelId
+<i>38</i>&nbsp;     * @return
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    List&lt;Order&gt; getHotelOrders(Integer hotelId);
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * 获取酒店的所有评价
+<i>44</i>&nbsp;     * @param hotelId
+<i>45</i>&nbsp;     * @return
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    List&lt;Order&gt; getEvaluations(Integer hotelId);
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * 查看酒店营业额，返回累计营业额和本周营业额
+<i>50</i>&nbsp;     * @param hotelId
+<i>51</i>&nbsp;     * @return
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    List&lt;Double&gt; showSales(Integer hotelId);
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * 撤销订单
+<i>57</i>&nbsp;     * @param orderid
+<i>58</i>&nbsp;     * @return
+<i>59</i>&nbsp;     */
+<i>60</i>&nbsp;    ResponseVO annulOrder(int orderid);
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * 获得某一订单的具体信息
+<i>64</i>&nbsp;     * @param orderid
+<i>65</i>&nbsp;     * @return
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    Order getOrderById(int orderid);
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * 执行订单,包括执行异常订单
+<i>71</i>&nbsp;     * @param orderid
+<i>72</i>&nbsp;     * @return
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    ResponseVO executeOrder(int orderid);
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * 更新退房信息
+<i>78</i>&nbsp;     * @param orderid
+<i>79</i>&nbsp;     * @return
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    ResponseVO checkOutOrder(int orderid);
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * 获得所有的已申诉异常订单信息
+<i>85</i>&nbsp;     * @param
+<i>86</i>&nbsp;     * @return
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    List&lt;Order&gt; getExceptionOrders();
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * 处理申诉的异常订单
+<i>92</i>&nbsp;     * @param orderId
+<i>93</i>&nbsp;     * @return
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    ResponseVO processExceptionOrder(int orderId);
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * 对异常订单进行申诉
+<i>99</i>&nbsp;     * @param orderId
+<i>100</i>&nbsp;     * @return
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    ResponseVO appealOrder(int orderId);
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * 将超时订单置为异常，并扣除信用值
+<i>106</i>&nbsp;     * @param
+<i>107</i>&nbsp;     * @return
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    ResponseVO processAllLateOrders();
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;    /**
+<i>112</i>&nbsp;     * 订单完成后进行评价
+<i>113</i>&nbsp;     * @param orderId
+<i>114</i>&nbsp;     * @param evaluation
+<i>115</i>&nbsp;     * @return
+<i>116</i>&nbsp;     */
+<i>117</i>&nbsp;    ResponseVO makeEvaluation(int orderId, String evaluation);
+<i>118</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

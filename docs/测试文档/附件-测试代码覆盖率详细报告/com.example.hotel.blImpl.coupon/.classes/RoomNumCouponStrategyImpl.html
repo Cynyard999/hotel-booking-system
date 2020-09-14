@@ -1,0 +1,128 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomNumCouponStrategyImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.blImpl.coupon</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomNumCouponStrategyImpl (com.example.hotel.blImpl.coupon)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoomNumCouponStrategyImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RoomNumCouponStrategyImpl$MockitoMock$1844871853</td>
+  </tr>
+  <tr>
+    <td class="name">RoomNumCouponStrategyImpl$MockitoMock$1844871853$auxiliary$GSFQlIHe</td>
+  </tr>
+  <tr>
+    <td class="name">RoomNumCouponStrategyImpl$MockitoMock$1844871853$auxiliary$TE8tDash</td>
+  </tr>
+  <tr>
+    <td class="name">RoomNumCouponStrategyImpl$MockitoMock$1844871853$auxiliary$TeYiJWng</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.blImpl.coupon;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.bl.coupon.CouponMatchStrategy;
+<i>4</i>&nbsp;import com.example.hotel.po.Coupon;
+<i>5</i>&nbsp;import com.example.hotel.vo.OrderVO;
+<i>6</i>&nbsp;import org.springframework.stereotype.Service;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;@Service
+<b class="fc"><i>9</i>&nbsp;public class RoomNumCouponStrategyImpl implements CouponMatchStrategy {</b>
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * 判断某个订单是否满足某种多间优惠策略
+<i>14</i>&nbsp;     * @param orderVO
+<i>15</i>&nbsp;     * @param coupon
+<i>16</i>&nbsp;     * @return
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    @Override
+<i>19</i>&nbsp;    public boolean isMatch(OrderVO orderVO, Coupon coupon) {
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;        if (orderVO.getRoomNum() &gt;= coupon.getRoomNum()) {</b>
+<b class="fc"><i>22</i>&nbsp;            return true;</b>
+<i>23</i>&nbsp;        }
+<b class="fc"><i>24</i>&nbsp;        return false;</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>

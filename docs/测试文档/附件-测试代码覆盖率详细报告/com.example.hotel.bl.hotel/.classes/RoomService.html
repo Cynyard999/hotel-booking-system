@@ -1,0 +1,93 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.hotel.bl.hotel</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomService (com.example.hotel.bl.hotel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$478082115</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$478082115$auxiliary$ehCId0lB</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$478082115$auxiliary$jvprzAu3</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.hotel.bl.hotel;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.hotel.po.HotelRoom;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public interface RoomService {
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    /**
+<i>10</i>&nbsp;     * 获取某个酒店的全部房间信息
+<i>11</i>&nbsp;     * @param hotelId
+<i>12</i>&nbsp;     * @return
+<i>13</i>&nbsp;     */
+<i>14</i>&nbsp;    List&lt;HotelRoom&gt; retrieveHotelRoomInfo(Integer hotelId);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * 添加酒店客房信息
+<i>18</i>&nbsp;     * @param hotelRoom
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    void insertRoomInfo(HotelRoom hotelRoom);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * 预订酒店后更新客房房间数量
+<i>24</i>&nbsp;     * @param hotelId
+<i>25</i>&nbsp;     * @param roomType
+<i>26</i>&nbsp;     * @param rooms
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    void updateRoomInfo(Integer hotelId, String roomType, Integer rooms);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * 获取酒店指定房间剩余数量
+<i>32</i>&nbsp;     * @param hotelId
+<i>33</i>&nbsp;     * @param roomId
+<i>34</i>&nbsp;     * @return
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    int getRoomCurNum(Integer hotelId, Integer roomId);
+<i>37</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-30 09:17</div>
+</div>
+</body>
+</html>
