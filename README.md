@@ -1,6 +1,6 @@
 ### README
 
-##### 上传历次作业
+> Only for preserving assignments, /code part cannot run directly
 
 ---
 
